@@ -3,16 +3,16 @@ import axios from 'axios';
 const API_URL = 'http://localhost:3000/';
 
 export default {
-  async addMovie(id: string, user: string) {
+  async addMovie(id: string, userId: string) {
     try {
       const response = await axios.get(
-        `${API_URL}favorites?idMovie=${id}&user=${user}`
+        `${API_URL}favorites?idMovie=${id}&userId=${userId}`
       );
       if (response.data[0]) {
         console.log('pelicula ya agregada');
       } else {
         await axios.post(`${API_URL}favorites`, {
-          user: user,
+          userId: userId,
           idMovie: id,
         });
       }
@@ -21,10 +21,10 @@ export default {
     }
   },
 
-  async reviewMovie(id: string, user: string): Promise<number> {
+  async reviewMovie(id: string, userId: string): Promise<number> {
     try {
       const response = await axios.get(
-        `${API_URL}favorites?idMovie=${id}&user=${user}`
+        `${API_URL}favorites?idMovie=${id}&userId=${userId}`
       );
       if (response.data[0]) {
         return response.data[0].id;
@@ -44,9 +44,9 @@ export default {
     }
   },
 
-  async movieByUser(user: string) {
+  async movieByUser(userId: string) {
     try {
-      const response = await axios.get(`${API_URL}favorites?user=${user}`);
+      const response = await axios.get(`${API_URL}favorites?userId=${userId}`);
       console.log(response);
       return response.data;
     } catch (error) {

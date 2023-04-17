@@ -20,5 +20,10 @@ export default {
       path: '/movies/favorites',
       component: () => import('../components/FavoriteMovies.vue'),
     },
+    {
+      name: 'Profile',
+      path: '/profile',
+      component: () => import('../components/ProfileAccount.vue'),
+    },
   ],
 };

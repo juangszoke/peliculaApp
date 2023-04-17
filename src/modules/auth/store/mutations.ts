@@ -6,16 +6,18 @@ const mutation: MutationTree<AuthState> = {
     // your code
   },
 
-  login(state, { user, name }) {
+  login(state, { user, name, id }) {
     state.IsLogin = true;
     state.user = user;
     state.name = name;
+    state.id = id
   },
 
   logout(state) {
     state.IsLogin = false;
     state.user = '';
     state.name = '';
+    state.id = '';
   },
 };
 

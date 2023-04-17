@@ -22,7 +22,7 @@ const actions: ActionTree<AuthState, StateInterface> = {
       .then((response) => {
         if (response.data[0]) {
           this.$router.push(redirect);
-          commit('login', { user: user, name: response.data[0].nombre });
+          commit('login', { user: user, name: response.data[0].name, id: response.data[0].id});
           return false;
         } else {
           return true;
@@ -49,13 +49,13 @@ const actions: ActionTree<AuthState, StateInterface> = {
           axios
             .post('http://localhost:3000/users', {
               user: user.user,
-              nombre: user.name,
+              name: user.name,
               email: user.email,
               password: user.password,
-              telefono: user.phone_number,
-              pais: user.country,
-              ciudad: user.city,
-              genero: user.genre,
+              phone_number: user.phone_number,
+              country: user.country,
+              city: user.city,
+              genre: user.genre,
             })
             .then(() => {
               this.$router.push('/auth');

@@ -62,6 +62,7 @@ export default defineComponent({
   computed: {
     ...mapGetters('auth', ['getName']),
     ...mapGetters('auth', ['getUser']),
+    ...mapGetters('auth', ['getId']),
   },
   methods: {
     async deleteMovie(id: number) {
@@ -79,7 +80,7 @@ export default defineComponent({
   },
 
   async created() {
-    this.movies = await authService.movieByUser(this.getUser);
+    this.movies = await authService.movieByUser(this.getId.toString());
     this.moviesinfo = await movieServices.getMoviesFavorites(this.movies);
   },
 });

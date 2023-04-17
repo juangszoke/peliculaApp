@@ -2,6 +2,7 @@ export interface AuthState {
   IsLogin: boolean;
   user: string;
   name: string;
+  id: string;
 }
 
 function state(): AuthState {
@@ -9,6 +10,7 @@ function state(): AuthState {
     IsLogin: false,
     user: '',
     name: '',
+    id: ''
   };
 }
 

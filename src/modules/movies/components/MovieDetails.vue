@@ -127,11 +127,12 @@ export default defineComponent({
     },
 
     async addfavorites() {
-      if (this.getUser && !this.loadButton) {
-        await authService.addMovie(this.id, this.getUser);
+      
+      if (this.getId.toString() && !this.loadButton) {
+        await authService.addMovie(this.id, this.getId.toString());
         this.loadButton = !this.loadButton;
-      } else if (this.getUser && this.loadButton) {
-        this.idForRemove = await authService.reviewMovie(this.id, this.getUser);
+      } else if (this.getId.toString() && this.loadButton) {
+        this.idForRemove = await authService.reviewMovie(this.id, this.getId.toString());
         await authService.removeMovie(this.idForRemove.toString());
         this.loadButton = !this.loadButton;
       } else {
@@ -141,6 +142,7 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters('auth', ['getUser']),
+    ...mapGetters('auth', ['getId']),
   },
   async mounted() {
     this.movieDetails = await moviesService.getByidMovie(this.id);
@@ -149,7 +151,7 @@ export default defineComponent({
     this.director = this.actors.crew.find(
       (member) => member.job === 'Director'
     );
-    this.idForRemove = await authService.reviewMovie(this.id, this.getUser);
+    this.idForRemove = await authService.reviewMovie(this.id, this.getId.toString());
     console.log(this.idForRemove);
     this.loadButton = this.idForRemove !== -1;
 

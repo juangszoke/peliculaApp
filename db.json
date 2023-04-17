@@ -1,62 +1,57 @@
 {
   "users": [
     {
-      "id": 0,
-      "nombre": "Juan",
       "user": "juan",
+      "name": "Juan Gomez Szoke",
       "email": "juan@gmail.com",
       "password": "123456",
-      "telefono": "5555",
-      "pais": "venezuela",
-      "ciudad": "sc",
-      "genero": "terror"
+      "phone_number": "42585",
+      "country": "venezuela",
+      "city": "San Cristobal",
+      "genre": "terror",
+      "id": 0
     },
     {
       "user": "szoke",
-      "nombre": "szoke",
+      "name": "szoke",
       "email": "szoke@gmail.com",
       "password": "123456",
-      "telefono": "45345",
-      "pais": "Venezuela",
-      "ciudad": "sc",
-      "genero": "horror",
+      "phone_number": "45345",
+      "country": "Venezuela",
+      "city": "sc",
+      "genre": "horror",
       "id": 1
     }
   ],
   "favorites": [
     {
-      "user": "szoke",
+      "userId": "1",
       "idMovie": "816904",
       "id": 9
     },
     {
-      "user": "szoke",
+      "userId": "1",
       "idMovie": "603692",
       "id": 11
     },
     {
-      "user": "juan",
+      "userId": "1",
       "idMovie": "638974",
       "id": 14
     },
     {
-      "user": "szoke",
+      "userId": "1",
       "idMovie": "736790",
       "id": 16
     },
     {
-      "user": "szoke",
+      "userId": "1",
       "idMovie": "676841",
       "id": 17
     },
     {
-      "user": "szoke",
-      "idMovie": "502356",
-      "id": 18
-    },
-    {
-      "user": "juan",
-      "idMovie": "76600",
+      "userId": "0",
+      "idMovie": "804150",
       "id": 19
     }
   ]

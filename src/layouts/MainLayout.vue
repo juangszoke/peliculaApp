@@ -86,7 +86,7 @@ export default defineComponent({
       },
       {
         title: 'Perfil',
-        link: '/movies/favorites',
+        link: '/profile',
       },
     ];
   },
