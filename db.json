@@ -13,10 +13,10 @@
     },
     {
       "user": "szoke",
-      "name": "szoke",
+      "name": "Juan Szoke",
       "email": "szoke@gmail.com",
       "password": "123456",
-      "phone_number": "45345",
+      "phone_number": "453454",
       "country": "Venezuela",
       "city": "sc",
       "genre": "horror",
@@ -56,13 +56,44 @@
     },
     {
       "userId": "0",
-      "idMovie": "1033219",
+      "idMovie": "502356",
+      "id": 20
+    },
+    {
+      "idMovie": "594767",
+      "value": 5,
+      "id": 21
+    },
+    {
+      "idMovie": "700391",
+      "value": 5,
       "id": 22
+    }
+  ],
+  "votes": [
+    {
+      "userId": "0",
+      "idMovie": "502356",
+      "value": 1,
+      "id": 0
     },
     {
       "userId": "0",
-      "idMovie": "76600",
-      "id": 23
+      "idMovie": "603692",
+      "value": 5,
+      "id": 1
+    },
+    {
+      "userId": "1",
+      "idMovie": "502356",
+      "value": 10,
+      "id": 2
+    },
+    {
+      "userId": "1",
+      "idMovie": "594767",
+      "value": 9,
+      "id": 3
     }
   ]
 }

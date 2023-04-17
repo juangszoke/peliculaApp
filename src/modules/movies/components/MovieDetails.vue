@@ -61,7 +61,7 @@
           ><q-btn v-else @click="addfavorites" color="secondary"
             >quitar de favoritos</q-btn
           >
-          <q-btn class="q-ml-md" color="secondary"
+          <q-btn @click="openDialog" class="q-ml-md" color="secondary"
             >califica esta pelicula</q-btn
           >
         </div>
@@ -85,6 +85,8 @@
       </div>
     </div>
   </div>
+
+  <movie-dialog v-if="showDialog" @submit="(data) => votingMovie(data)" @close="closeDialog"/>
 </template>
 
 <script lang="ts">
@@ -93,6 +95,9 @@ import moviesService from '../../../services/movies.services';
 import Movies from '@/interfaces/movies';
 import { mapGetters, mapMutations } from 'vuex';
 import authService from '@/services/auth.services';
+import MovieDialog from '@/modules/movies/components/MovieDialog.vue'
+import scoreService from '@/services/score.services';
+
 
 interface Actors {
   id: number;
@@ -109,11 +114,13 @@ interface MyComponentState {
   actors: Actors;
   director: crewmate | undefined;
   loadButton: boolean;
+  showDialog: boolean;
   idForRemove: number;
   trailers: any[];
 }
 
 export default defineComponent({
+  components: { MovieDialog },
   name: 'MovieDetails',
   props: {
     id: {
@@ -129,6 +136,7 @@ export default defineComponent({
       trailers: [],
       loadButton: false,
       idForRemove: -1,
+      showDialog: false,
     };
   },
   methods: {
@@ -153,6 +161,17 @@ export default defineComponent({
         console.log('no está loggeado');
       }
     },
+    openDialog(){
+      this.showDialog = true;
+    },
+    closeDialog(){
+      this.showDialog = false;
+    },
+    votingMovie(value: number){
+      this.showDialog = false
+      console.log()
+      scoreService.votingMovie(this.getId.toString(),this.id, value);
+    }
   },
   computed: {
     ...mapGetters('auth', ['getUser']),
