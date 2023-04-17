@@ -13,7 +13,7 @@
           {{ movieDetails.original_title }}
         </div>
         <div class="movie-details__label">director:</div>
-        <div class="movie-details__text-subtitle1">
+        <div v-if="director?.name" class="movie-details__text-subtitle1">
           {{ director.name }}
         </div>
         <div class="movie-details__label">Fecha de estreno:</div>
@@ -68,7 +68,7 @@
       </div>
     </div>
   </q-card>
-  <h3>Actors</h3>
+  <h3 class="q-mb-md q-mt-xl q-ml-lg">Actors</h3>
   <div class="actor-list q-pa-md">
     <div class="actor-row" v-for="(actor, index) in actors.cast" :key="index">
       <q-img
@@ -86,6 +86,7 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent } from 'vue';
 import moviesService from '../../../services/movies.services';
@@ -96,7 +97,20 @@ import authService from '@/services/auth.services';
 interface Actors {
   id: number;
   cast: [];
-  crew: Array<any>;
+  crew: crewmate[];
+}
+interface crewmate {
+  job: string;
+  name: string;
+}
+
+interface MyComponentState {
+  movieDetails: Movies;
+  actors: Actors;
+  director: crewmate | undefined;
+  loadButton: boolean;
+  idForRemove: number;
+  trailers: any[];
 }
 
 export default defineComponent({
@@ -107,11 +121,11 @@ export default defineComponent({
       required: true,
     },
   },
-  data() {
+  data():MyComponentState {
     return {
       movieDetails: {} as Movies,
       actors: {} as Actors,
-      director: '',
+      director: undefined,
       trailers: [],
       loadButton: false,
       idForRemove: -1,
@@ -148,9 +162,11 @@ export default defineComponent({
     this.movieDetails = await moviesService.getByidMovie(this.id);
     this.actors = await moviesService.getActorsByMovie(this.id);
     this.trailers = await moviesService.getTrailersByMovie(this.id);
+    
     this.director = this.actors.crew.find(
       (member) => member.job === 'Director'
     );
+
     this.idForRemove = await authService.reviewMovie(this.id, this.getId.toString());
     console.log(this.idForRemove);
     this.loadButton = this.idForRemove !== -1;

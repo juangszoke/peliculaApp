@@ -112,6 +112,11 @@ export default defineComponent({
     ...mapGetters('auth', ['getName']),
     ...mapGetters('movie', ['getMovieId']),
   },
+  watch: {
+    getName(newVal) {
+      this.nombre = newVal
+    }
+  },
   created() {
     this.nombre = this.getName;
   },

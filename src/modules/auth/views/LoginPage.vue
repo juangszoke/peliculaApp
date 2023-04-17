@@ -64,7 +64,6 @@ export default defineComponent({
 
   methods: {
     ...mapActions('auth', ['login']),
-    // ...mapActions('auth')
     async Onlogin() {
       const user = this.user;
       const password = this.password;

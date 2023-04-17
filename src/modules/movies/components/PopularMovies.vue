@@ -1,7 +1,9 @@
 <template>
-  <h3 class="q-my-none">Popular movies</h3>
+  <h3 class="q-my-none q-ml-lg">Popular movies</h3>
   <div class="row justify-center">
     <div class="col-md-2">
+
+      <h6 class="q-my-md q-ml-md">Generos: </h6>
       <q-chip
         v-for="(genre, index) in genres"
         :key="genre.id"
@@ -198,5 +200,13 @@ export default defineComponent({
 .cards {
   width: 220px;
   height: auto;
+}
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1rem;
+}
+h6{
+  font-weight: bold;
 }
 </style>

@@ -3,7 +3,13 @@
   <div class="q-pa-md">
     <q-card class="q-mt-md profile-card">
       <q-card-section class="q-py-md profile-section profile-section-1">
-        <h4 class="text-h4 q-mb-lg q-mt-sm text-center">Perfil de {{ information.name }}</h4>
+        <h4 class="text-h4 q-mb-lg q-mt-sm text-center">Informacion personal</h4>
+        <div class="q-gutter-md">
+            <div class="row">
+                <div class="text-subtitle2 q-mr-md profile-label">Nombre:</div>
+                <div class="profile-value">{{ information.name }}</div>
+            </div>
+        </div>
         <div class="q-gutter-md">
             <div class="row">
                 <div class="text-subtitle2 q-mr-md profile-label">Username:</div>
@@ -66,7 +72,7 @@
 import User from '@/interfaces/user';
 import { defineComponent } from 'vue';
 import profileServices from '@/services/profile.services'
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import profileDialog from '@/modules/movies/components/ProfileDialog.vue'
 
 
@@ -92,6 +98,7 @@ export default defineComponent({
     ...mapGetters('auth', ['getId']),
   },
   methods: {
+    ...mapMutations('auth', ['login']),
     activeDialog(){
         this.showDialog = true
     },
@@ -102,7 +109,7 @@ export default defineComponent({
         this.showDialog = false
         await profileServices.UpdateInformation(user)
         this.information = await profileServices.profileInformation(this.getId);
-        
+        this.login({ user: user.user, name: user.name, id: user.id });
     }
   },
   async mounted() {

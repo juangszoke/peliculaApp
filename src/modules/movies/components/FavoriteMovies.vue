@@ -1,5 +1,5 @@
 <template>
-  <h3 class="q-my-none q-ml-md q-mt-md">
+  <h3 class="q-my-none q-ml-lg q-mt-md">
     Peliculas favoritas de {{ getName }}
   </h3>
 
@@ -93,5 +93,9 @@ export default defineComponent({
 }
 .icon:hover {
   cursor: pointer;
+}
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 </style>
