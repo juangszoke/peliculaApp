@@ -190,7 +190,6 @@ export default defineComponent({
 
   async mounted() {
     this.populares = await moviesService.getPopular(this.page);
-    this.setDefaultValue;
   },
 });
 </script>

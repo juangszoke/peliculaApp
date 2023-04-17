@@ -21,25 +21,24 @@ export default {
     }
   },
 
-  async reviewMovie(id: string, user: string): Promise<boolean> {
+  async reviewMovie(id: string, user: string): Promise<number> {
     try {
       const response = await axios.get(
         `${API_URL}favorites?idMovie=${id}&user=${user}`
       );
       if (response.data[0]) {
-        return true;
+        return response.data[0].id;
       }
-      return false;
+      return -1;
     } catch (error) {
       console.log(error);
-      return false;
+      return -1;
     }
   },
 
-  async removeMovie(id: string, user: string) {
+  async removeMovie(id: string) {
     try {
-      console.log(id, user);
-      await axios.delete(`${API_URL}favorites?user=${user}&idMovie=${id}`);
+      await axios.delete(`${API_URL}favorites/${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +47,7 @@ export default {
   async movieByUser(user: string) {
     try {
       const response = await axios.get(`${API_URL}favorites?user=${user}`);
-      console.log(response.data);
+      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error);

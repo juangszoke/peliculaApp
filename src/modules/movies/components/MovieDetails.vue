@@ -29,17 +29,40 @@
         </div>
         <div class="movie-details__label">Sinopsis:</div>
         <div class="movie-details__text-body1">{{ movieDetails.overview }}</div>
-        <div class="movie-details__label">Clasificación:</div>
-        <div class="movie-details__text-body1">
-          {{
-            movieDetails.adult ? 'Solo para adultos' : 'Apto para todo público'
-          }}
+
+        <div class="row">
+          <div class="column">
+            <div class="movie-details__label">Clasificación:</div>
+            <div class="movie-details__text-body1">
+              {{
+                movieDetails.adult
+                  ? 'Solo para adultos'
+                  : 'Apto para todo público'
+              }}
+            </div>
+          </div>
+          <div class="column q-pl-lg">
+            <div class="movie-details__label">Calificacion:</div>
+            <div class="movie-details__text-body1">
+              {{ movieDetails.vote_average }}
+            </div>
+          </div>
+          <div class="column q-pl-lg">
+            <div class="movie-details__label">Calificacion de usuarios:</div>
+            <div class="movie-details__text-body1">
+              {{ movieDetails.vote_average }}
+            </div>
+          </div>
         </div>
+
         <div class="justify-end">
           <q-btn v-if="!loadButton" @click="addfavorites" color="secondary"
             >añadir a favoritos</q-btn
           ><q-btn v-else @click="addfavorites" color="secondary"
             >quitar de favoritos</q-btn
+          >
+          <q-btn class="q-ml-md" color="secondary"
+            >califica esta pelicula</q-btn
           >
         </div>
       </div>
@@ -62,9 +85,6 @@
       </div>
     </div>
   </div>
-  <q-btn class="movie-details__button" @click="backToIndex"
-    >Volver a lista de peliculas</q-btn
-  >
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -94,6 +114,7 @@ export default defineComponent({
       director: '',
       trailers: [],
       loadButton: false,
+      idForRemove: -1,
     };
   },
   methods: {
@@ -110,7 +131,8 @@ export default defineComponent({
         await authService.addMovie(this.id, this.getUser);
         this.loadButton = !this.loadButton;
       } else if (this.getUser && this.loadButton) {
-        await authService.removeMovie(this.id, this.getUser);
+        this.idForRemove = await authService.reviewMovie(this.id, this.getUser);
+        await authService.removeMovie(this.idForRemove.toString());
         this.loadButton = !this.loadButton;
       } else {
         console.log('no está loggeado');
@@ -127,7 +149,10 @@ export default defineComponent({
     this.director = this.actors.crew.find(
       (member) => member.job === 'Director'
     );
-    this.loadButton = await authService.reviewMovie(this.id, this.getUser);
+    this.idForRemove = await authService.reviewMovie(this.id, this.getUser);
+    console.log(this.idForRemove);
+    this.loadButton = this.idForRemove !== -1;
+
     this.setMovieId(this.id);
   },
 });

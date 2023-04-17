@@ -24,13 +24,19 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label header> Essential Links </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
+        <q-item-label header> Peliculas app </q-item-label>
+        <q-item
+          @click="resetMovieActual"
+          v-for="link in linksList"
           :key="link.title"
-          v-bind="link"
-        />
+          :to="link.link"
+          clickable
+          v-ripple
+        >
+          <q-item-section>
+            {{ link.title }}
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -45,66 +51,44 @@ import { defineComponent } from 'vue';
 
 import { mapMutations } from 'vuex';
 import { mapGetters } from 'vuex';
-import EssentialLink from 'components/EssentialLink.vue';
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
-];
+interface MyComponentState {
+  linksList: items[];
+  nombre: string;
+  leftDrawerOpen: boolean;
+}
+
+interface items {
+  title: string;
+  link: string;
+}
 
 export default defineComponent({
   name: 'MainLayout',
 
-  components: {
-    EssentialLink,
-  },
-
-  data() {
+  data(): MyComponentState {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksList,
+      linksList: [],
       nombre: '',
     };
+  },
+
+  mounted() {
+    this.linksList = [
+      {
+        title: 'Home',
+        link: '/movies',
+      },
+      {
+        title: 'Favoritas',
+        link: '/movies/favorites',
+      },
+      {
+        title: 'Perfil',
+        link: '/movies/favorites',
+      },
+    ];
   },
 
   methods: {
@@ -119,6 +103,9 @@ export default defineComponent({
     },
     login() {
       this.$router.push('/auth');
+    },
+    resetMovieActual() {
+      this.setDefaultValue();
     },
   },
   computed: {

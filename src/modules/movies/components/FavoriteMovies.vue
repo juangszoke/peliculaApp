@@ -23,6 +23,13 @@
         <p class="q-mb-none">Calificación: {{ movie.vote_average }}</p>
         <p>Fecha de estreno: {{ movie.release_date }}</p>
       </q-card-section>
+      <q-icon
+        @click="deleteMovie(index)"
+        class="q-pa-md items-center icon"
+        name="delete"
+        color="red"
+        size="md"
+      />
     </q-card>
   </div>
 </template>
@@ -56,6 +63,20 @@ export default defineComponent({
     ...mapGetters('auth', ['getName']),
     ...mapGetters('auth', ['getUser']),
   },
+  methods: {
+    async deleteMovie(id: number) {
+      await authService.removeMovie(this.movies[id].id.toString());
+      console.log(id);
+      console.log(this.movies);
+      if (id === 0) {
+        this.movies.shift();
+      } else {
+        this.movies.splice(id, 1);
+      }
+      console.log(this.movies);
+      this.moviesinfo = await movieServices.getMoviesFavorites(this.movies);
+    },
+  },
 
   async created() {
     this.movies = await authService.movieByUser(this.getUser);
@@ -68,5 +89,8 @@ export default defineComponent({
 .cards {
   width: 220px;
   height: auto;
+}
+.icon:hover {
+  cursor: pointer;
 }
 </style>

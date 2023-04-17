@@ -21,64 +21,43 @@
       "ciudad": "sc",
       "genero": "horror",
       "id": 1
-    },
-    {
-      "user": "pedro15",
-      "nombre": "pedro",
-      "email": "pedro@gmail.com",
-      "password": "123456",
-      "telefono": "69846",
-      "pais": "Peru",
-      "ciudad": "lima",
-      "genero": "porno",
-      "id": 2
     }
   ],
   "favorites": [
     {
-      "id": 0,
-      "user": "juan",
-      "idMovie": "76600"
+      "user": "szoke",
+      "idMovie": "816904",
+      "id": 9
     },
     {
-      "user": "juan",
-      "idMovie": "594767",
-      "id": 1
-    },
-    {
-      "user": "juan",
-      "idMovie": "502356",
-      "id": 2
+      "user": "szoke",
+      "idMovie": "603692",
+      "id": 11
     },
     {
       "user": "juan",
       "idMovie": "638974",
-      "id": 3
+      "id": 14
     },
     {
-      "user": "juan",
-      "idMovie": "677179",
-      "id": 4
-    },
-    {
-      "user": "juan",
-      "idMovie": "603692",
-      "id": 5
-    },
-    {
-      "user": "juan",
-      "idMovie": "1033219",
-      "id": 6
-    },
-    {
-      "user": "juan",
-      "idMovie": "102444",
-      "id": 7
-    },
-    {
-      "user": "juan",
+      "user": "szoke",
       "idMovie": "736790",
-      "id": 8
+      "id": 16
+    },
+    {
+      "user": "szoke",
+      "idMovie": "676841",
+      "id": 17
+    },
+    {
+      "user": "szoke",
+      "idMovie": "502356",
+      "id": 18
+    },
+    {
+      "user": "juan",
+      "idMovie": "76600",
+      "id": 19
     }
   ]
 }
