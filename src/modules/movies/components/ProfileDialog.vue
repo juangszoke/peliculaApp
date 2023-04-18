@@ -2,11 +2,10 @@
   <q-dialog v-model="dialog" persistent>
     <q-card class="dialog q-pa-md q-mb-md" flat bordered>
       <q-card-section>
-        <h4 class="q-ma-none text-center">Editando perfil
-        </h4>
+        <h4 class="q-ma-none text-center">Editando perfil</h4>
       </q-card-section>
       <q-card-section>
-        <q-form >
+        <q-form>
           <q-input
             v-model="localUser.name"
             label="Nombre"
@@ -30,7 +29,7 @@
             :rules="[(val) => !!val || 'Este campo es obligatorio.']"
           />
           <q-input
-             v-model="localUser.password"
+            v-model="localUser.password"
             label="Clave"
             type="password"
             dense
@@ -38,7 +37,7 @@
             :rules="[(val) => !!val || 'Este campo es obligatorio.']"
           />
           <q-input
-             v-model="localUser.phone_number"
+            v-model="localUser.phone_number"
             label="Telefono"
             type="number"
             dense
@@ -68,7 +67,8 @@
           />
           <div align="right">
             <q-btn type="submit" push color="primary" @click="uploadProfile">
-              guardar cambios</q-btn>
+              guardar cambios</q-btn
+            >
             <q-btn
               class="q-ml-md"
               color="negative"
@@ -86,42 +86,37 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import User from '@/interfaces/user'
+import User from '@/interfaces/user';
 
 interface MyComponentState {
   localUser: User;
   dialog: boolean;
- 
 }
 
 export default defineComponent({
-  name:'ProfileDialog',
-  props:{
-    user:{
-        type: Object as () => User,
-        required: true
-    }
-
+  name: 'ProfileDialog',
+  props: {
+    user: {
+      type: Object as () => User,
+      required: true,
+    },
   },
   data(): MyComponentState {
-    
     return {
       dialog: true,
-      localUser: {...this.user}
+      localUser: { ...this.user },
     };
   },
   methods: {
-    uploadProfile(){
-        this.$emit("submit", this.localUser);
-    }
-
-  }
-  
+    uploadProfile() {
+      this.$emit('submit', this.localUser);
+    },
+  },
 });
 </script>
 
 <style lang="scss" scoped>
-.dialog{
-width: 100%;
+.dialog {
+  width: 100%;
 }
 </style>

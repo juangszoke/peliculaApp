@@ -110,12 +110,13 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters('auth', ['getName']),
+    ...mapGetters('auth', ['getUser']),
     ...mapGetters('movie', ['getMovieId']),
   },
   watch: {
     getName(newVal) {
-      this.nombre = newVal
-    }
+      this.nombre = newVal;
+    },
   },
   created() {
     this.nombre = this.getName;

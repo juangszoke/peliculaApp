@@ -17,11 +17,17 @@ export default {
     },
     {
       name: 'favoriteMovies',
+      meta: {
+        requiredAuth: true,
+      },
       path: '/movies/favorites',
       component: () => import('../components/FavoriteMovies.vue'),
     },
     {
       name: 'Profile',
+      meta: {
+        requiredAuth: true,
+      },
       path: '/profile',
       component: () => import('../components/ProfileAccount.vue'),
     },

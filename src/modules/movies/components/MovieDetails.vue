@@ -3,6 +3,7 @@
     <div class="movie-details__wrapper">
       <div class="movie-details__image-container">
         <q-img
+          v-if="movieDetails.poster_path"
           :src="`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`"
           alt="Poster"
           class="movie-details__image"
@@ -50,7 +51,7 @@
           <div class="column q-pl-lg">
             <div class="movie-details__label">Calificacion de usuarios:</div>
             <div class="movie-details__text-body1">
-              {{ movieDetails.vote_average }}
+              {{ votingaccounts }}
             </div>
           </div>
         </div>
@@ -86,7 +87,11 @@
     </div>
   </div>
 
-  <movie-dialog v-if="showDialog" @submit="(data) => votingMovie(data)" @close="closeDialog"/>
+  <movie-dialog
+    v-if="showDialog"
+    @submit="(data) => votingMovie(data)"
+    @close="closeDialog"
+  />
 </template>
 
 <script lang="ts">
@@ -95,9 +100,8 @@ import moviesService from '../../../services/movies.services';
 import Movies from '@/interfaces/movies';
 import { mapGetters, mapMutations } from 'vuex';
 import authService from '@/services/auth.services';
-import MovieDialog from '@/modules/movies/components/MovieDialog.vue'
+import MovieDialog from '@/modules/movies/components/MovieDialog.vue';
 import scoreService from '@/services/score.services';
-
 
 interface Actors {
   id: number;
@@ -117,6 +121,7 @@ interface MyComponentState {
   showDialog: boolean;
   idForRemove: number;
   trailers: any[];
+  votingaccounts: number;
 }
 
 export default defineComponent({
@@ -128,7 +133,7 @@ export default defineComponent({
       required: true,
     },
   },
-  data():MyComponentState {
+  data(): MyComponentState {
     return {
       movieDetails: {} as Movies,
       actors: {} as Actors,
@@ -137,41 +142,40 @@ export default defineComponent({
       loadButton: false,
       idForRemove: -1,
       showDialog: false,
+      votingaccounts: 0,
     };
   },
   methods: {
     ...mapMutations('movie', ['setMovieId']),
     ...mapMutations('movie', ['setDefaultValue']),
 
-    backToIndex() {
-      this.setDefaultValue();
-      this.$router.push('/movies');
-    },
-
     async addfavorites() {
-      
       if (this.getId.toString() && !this.loadButton) {
         await authService.addMovie(this.id, this.getId.toString());
         this.loadButton = !this.loadButton;
       } else if (this.getId.toString() && this.loadButton) {
-        this.idForRemove = await authService.reviewMovie(this.id, this.getId.toString());
+        this.idForRemove = await authService.reviewMovie(
+          this.id,
+          this.getId.toString()
+        );
         await authService.removeMovie(this.idForRemove.toString());
         this.loadButton = !this.loadButton;
       } else {
         console.log('no está loggeado');
       }
     },
-    openDialog(){
+    openDialog() {
       this.showDialog = true;
     },
-    closeDialog(){
+    closeDialog() {
       this.showDialog = false;
     },
-    votingMovie(value: number){
-      this.showDialog = false
-      console.log()
-      scoreService.votingMovie(this.getId.toString(),this.id, value);
-    }
+    async votingMovie(value: number) {
+      this.showDialog = false;
+      await scoreService.votingMovie(this.getId.toString(), this.id, value);
+      this.votingaccounts = await scoreService.reviewVoting(this.id);
+      console.log(this.votingaccounts);
+    },
   },
   computed: {
     ...mapGetters('auth', ['getUser']),
@@ -181,15 +185,19 @@ export default defineComponent({
     this.movieDetails = await moviesService.getByidMovie(this.id);
     this.actors = await moviesService.getActorsByMovie(this.id);
     this.trailers = await moviesService.getTrailersByMovie(this.id);
-    
+
     this.director = this.actors.crew.find(
       (member) => member.job === 'Director'
     );
 
-    this.idForRemove = await authService.reviewMovie(this.id, this.getId.toString());
+    this.idForRemove = await authService.reviewMovie(
+      this.id,
+      this.getId.toString()
+    );
     console.log(this.idForRemove);
     this.loadButton = this.idForRemove !== -1;
-
+    this.votingaccounts = await scoreService.reviewVoting(this.id);
+    console.log(this.votingaccounts);
     this.setMovieId(this.id);
   },
 });
