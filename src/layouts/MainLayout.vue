@@ -13,10 +13,12 @@
 
         <template v-if="nombre">
           <q-toolbar-title> Bienvenido {{ nombre }} </q-toolbar-title>
+          <q-toggle class="q-mr-md" v-model="mode" color="white" label="Dark mode"/>
           <q-btn flat @click="OnLogOut">Cerrar sesion</q-btn>
         </template>
         <template v-else>
           <q-toolbar-title> Bienvenido </q-toolbar-title>
+          <q-toggle class="q-mr-md" v-model="mode" color="white" label="Dark mode" />
           <q-btn flat @click="login">Login</q-btn>
         </template>
       </q-toolbar>
@@ -78,6 +80,7 @@ interface MyComponentState {
   linksList: items[];
   nombre: string;
   leftDrawerOpen: boolean;
+  mode: boolean;
 }
 
 interface items {
@@ -93,26 +96,9 @@ export default defineComponent({
       leftDrawerOpen: false,
       linksList: [],
       nombre: '',
+      mode: false,
     };
   },
-
-  mounted() {
-    this.linksList = [
-      {
-        title: 'Home',
-        link: '/movies',
-      },
-      {
-        title: 'Favoritas',
-        link: ' ',
-      },
-      {
-        title: 'Perfil',
-        link: '/profile',
-      },
-    ];
-  },
-
   methods: {
     ...mapMutations('auth', ['logout']),
     ...mapMutations('movie', ['setDefaultValue']),
@@ -129,14 +115,13 @@ export default defineComponent({
     resetMovieActual() {
       this.setDefaultValue();
     },
-    verificar(link: string){
-     
-      if(link === '/movies/favorites'){
-        return true
-      }
-
-     return true
+    toggleDarkMode(){
+      this.mode = !this.mode;
+      console.log(this.mode)
+      
     }
+
+
   },
   computed: {
     ...mapGetters('auth', ['getName']),
@@ -147,6 +132,9 @@ export default defineComponent({
     getName(newVal) {
       this.nombre = newVal;
     },
+    mode(newVal){
+       this.$q.dark.set(newVal);
+    }
   },
   created() {
     this.nombre = this.getName;

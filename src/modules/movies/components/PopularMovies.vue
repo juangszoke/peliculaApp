@@ -14,7 +14,7 @@
         {{ genre.name }}
       </q-chip>
 
-      <q-btn @click="filter">buscar</q-btn>
+      <q-btn color="secondary" class="q-mt-md" @click="filter">buscar</q-btn>
     </div>
     <div class="col-md-10">
       <div class="row justify-center">
