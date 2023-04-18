@@ -58,7 +58,7 @@ export default {
     try {
       const { data } = await axios.get(`${API_URL}${id}/videos?${API_KEY}`);
 
-      return data;
+      return data.results;
     } catch (error) {
       console.log(error);
       return [];

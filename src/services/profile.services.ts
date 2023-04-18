@@ -19,17 +19,32 @@ export default {
         }
       },
 
-      async UpdateInformation(user: User) {
-
-        await axios.put(`${API_URL}users/${user.id.toString()}`, {
-            user: user.user,
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            phone_number: user.phone_number,
-            country: user.country,
-            city: user.city,
-            genre: user.genre,
-        })
+      async UpdateInformation(user: User, userActive: string) {
+        
+        const response = await axios.get(
+          `${API_URL}users?user=${user.user}`
+        );
+        if( response.data[0] && user.user !== userActive){
+          return false
+        }
+        else{
+          try{
+            await axios.put(`${API_URL}users/${user.id.toString()}`, {
+              user: user.user,
+              name: user.name,
+              email: user.email,
+              password: user.password,
+              phone_number: user.phone_number,
+              country: user.country,
+              city: user.city,
+              genre: user.genre,
+              
+          })
+          return true
+          }catch(error){
+            console.log(error)
+            return false
+          }
+        }   
     }
 }

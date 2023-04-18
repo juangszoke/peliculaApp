@@ -27,16 +27,38 @@
         <q-item-label header> Peliculas app </q-item-label>
         <q-item
           @click="resetMovieActual"
-          v-for="link in linksList"
-          :key="link.title"
-          :to="link.link"
+          to="/movies"
           clickable
           v-ripple
         >
-          <q-item-section>
-            {{ link.title }}
+            <q-item-section >
+             Home
           </q-item-section>
         </q-item>
+        <q-item
+          @click="resetMovieActual"
+          to="/movies/favorites"
+          clickable
+          v-ripple
+          v-if="getUser"
+        >
+            <q-item-section >
+             Favoritas
+          </q-item-section>
+        </q-item>
+        <q-item
+          @click="resetMovieActual"
+          to="/profile"
+          clickable
+          v-ripple
+          v-if="getUser"
+        >
+            <q-item-section >
+             Perfil
+          </q-item-section>
+        </q-item>
+      
+        
       </q-list>
     </q-drawer>
 
@@ -82,7 +104,7 @@ export default defineComponent({
       },
       {
         title: 'Favoritas',
-        link: '/movies/favorites',
+        link: ' ',
       },
       {
         title: 'Perfil',
@@ -107,6 +129,14 @@ export default defineComponent({
     resetMovieActual() {
       this.setDefaultValue();
     },
+    verificar(link: string){
+     
+      if(link === '/movies/favorites'){
+        return true
+      }
+
+     return true
+    }
   },
   computed: {
     ...mapGetters('auth', ['getName']),

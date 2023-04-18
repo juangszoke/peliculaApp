@@ -2,13 +2,13 @@
   "users": [
     {
       "user": "juan",
-      "name": "Juan",
+      "name": "Juan Gomez",
       "email": "juan@gmail.com",
       "password": "123456",
-      "phone_number": "42585",
-      "country": "venezuela",
+      "phone_number": "432564343",
+      "country": "Venezuela",
       "city": "San Cristobal",
-      "genre": "terror",
+      "genre": "Horror",
       "id": 0
     },
     {
@@ -74,7 +74,7 @@
     {
       "userId": "0",
       "idMovie": "502356",
-      "value": 1,
+      "value": 7,
       "id": 0
     },
     {

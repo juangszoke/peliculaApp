@@ -32,10 +32,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-
+import scoreService from '@/services/score.services';
+import { mapGetters } from 'vuex';
 export default defineComponent({
   name: 'ProfileDialog',
-
+  props: {
+      id: {
+        type: String,
+        required: true,
+      },
+  },
   data() {
     return {
       dialog: true,
@@ -48,6 +54,13 @@ export default defineComponent({
       this.$emit('submit', this.value);
     },
   },
+  async mounted(){
+    this.value = await scoreService.getVoting(this.id, this.getId.toString())
+
+  },
+  computed:{
+    ...mapGetters('auth', ['getId']),
+  }
 });
 </script>
 

@@ -62,13 +62,16 @@
           ><q-btn v-else @click="addfavorites" color="secondary"
             >quitar de favoritos</q-btn
           >
-          <q-btn @click="openDialog" class="q-ml-md" color="secondary"
+          <q-btn @click="openDialog" v-if="getUser" class="q-ml-md" color="secondary"
             >califica esta pelicula</q-btn
           >
         </div>
       </div>
     </div>
   </q-card>
+
+  <trailers-movies :id="id" />
+
   <h3 class="q-mb-md q-mt-xl q-ml-lg">Actors</h3>
   <div class="actor-list q-pa-md">
     <div class="actor-row" v-for="(actor, index) in actors.cast" :key="index">
@@ -91,6 +94,7 @@
     v-if="showDialog"
     @submit="(data) => votingMovie(data)"
     @close="closeDialog"
+    :id="id"
   />
 </template>
 
@@ -102,7 +106,7 @@ import { mapGetters, mapMutations } from 'vuex';
 import authService from '@/services/auth.services';
 import MovieDialog from '@/modules/movies/components/MovieDialog.vue';
 import scoreService from '@/services/score.services';
-
+import trailersMovies from '@/modules/movies/components/TrailersMovies.vue'
 interface Actors {
   id: number;
   cast: [];
@@ -120,12 +124,11 @@ interface MyComponentState {
   loadButton: boolean;
   showDialog: boolean;
   idForRemove: number;
-  trailers: any[];
   votingaccounts: number;
 }
 
 export default defineComponent({
-  components: { MovieDialog },
+  components: { MovieDialog, trailersMovies },
   name: 'MovieDetails',
   props: {
     id: {
@@ -138,7 +141,6 @@ export default defineComponent({
       movieDetails: {} as Movies,
       actors: {} as Actors,
       director: undefined,
-      trailers: [],
       loadButton: false,
       idForRemove: -1,
       showDialog: false,
@@ -174,7 +176,7 @@ export default defineComponent({
       this.showDialog = false;
       await scoreService.votingMovie(this.getId.toString(), this.id, value);
       this.votingaccounts = await scoreService.reviewVoting(this.id);
-      console.log(this.votingaccounts);
+      
     },
   },
   computed: {
@@ -182,9 +184,10 @@ export default defineComponent({
     ...mapGetters('auth', ['getId']),
   },
   async mounted() {
+    
     this.movieDetails = await moviesService.getByidMovie(this.id);
     this.actors = await moviesService.getActorsByMovie(this.id);
-    this.trailers = await moviesService.getTrailersByMovie(this.id);
+    
 
     this.director = this.actors.crew.find(
       (member) => member.job === 'Director'
@@ -194,10 +197,10 @@ export default defineComponent({
       this.id,
       this.getId.toString()
     );
-    console.log(this.idForRemove);
+    
     this.loadButton = this.idForRemove !== -1;
     this.votingaccounts = await scoreService.reviewVoting(this.id);
-    console.log(this.votingaccounts);
+    
     this.setMovieId(this.id);
   },
 });

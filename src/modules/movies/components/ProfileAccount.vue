@@ -106,15 +106,20 @@ export default defineComponent({
         this.showDialog = false
     },
     async uploadProfile(user: User){
-        this.showDialog = false
-        await profileServices.UpdateInformation(user)
-        this.information = await profileServices.profileInformation(this.getId);
-        this.login({ user: user.user, name: user.name, id: user.id });
+        
+        const result = await profileServices.UpdateInformation(user, this.getUser)
+
+        if(result){
+            this.showDialog = false
+            this.information = await profileServices.profileInformation(this.getId);
+            this.login({ user: user.user, name: user.name, id: user.id });
+        }else{
+          console.log('ese usuario ya está registrado')
+        }
     }
   },
   async mounted() {
      this.information = await profileServices.profileInformation(this.getId);
-     console.log(this.information)
   },
 });
 </script>
