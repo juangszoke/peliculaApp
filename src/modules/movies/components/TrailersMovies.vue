@@ -14,14 +14,12 @@
       >
 
         
-  <q-carousel-slide v-for="trailer in trailers" :key="trailer.id" :name="trailer.name" class="column no-wrap flex-center">
+  <q-carousel-slide  v-for="trailer in trailers" :key="trailer.id" :name="trailer.name" class="column no-wrap flex-center">
     
     <div class="q-pb-md text-h6">{{ trailer.name }}</div>
     <div class="column q-mt-md text-center ron">
         
-
         <qrcode :value="`https://www.youtube.com/watch?v=${trailer.key}`"></qrcode>
-      
      
       <q-btn class="q-mt-md" color="secondary" tag="a" :href="`https://www.youtube.com/watch?v=${trailer.key}`" target="_blank">Abrir Trailer</q-btn>
     </div>
@@ -38,7 +36,7 @@ import VueQrcode from 'vue-qrcode';
 interface MyComponentState {
   trailers: Trailer[];
   slide: string;
- 
+
 }
 
 interface Trailer{
@@ -60,6 +58,7 @@ export default defineComponent({
     return{
         trailers: [],
         slide: '',
+        
     }
   },
   async mounted(){

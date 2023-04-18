@@ -71,6 +71,16 @@ const actions: ActionTree<AuthState, StateInterface> = {
         console.log(error);
       });
   },
+
+  async getUser( { commit }, userId: string){
+    
+      axios.get(`http://localhost:3000/users/${userId}`)
+      .then((response) => {
+        commit('login', { user: response.data.user , name: response.data.name, id: response.data.id});
+      })
+
+    }
+  
 };
 
 export default actions;

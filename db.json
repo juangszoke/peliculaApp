@@ -55,11 +55,6 @@
       "id": 19
     },
     {
-      "userId": "0",
-      "idMovie": "502356",
-      "id": 20
-    },
-    {
       "idMovie": "594767",
       "value": 5,
       "id": 21
@@ -74,7 +69,7 @@
     {
       "userId": "0",
       "idMovie": "502356",
-      "value": 7,
+      "value": 3,
       "id": 0
     },
     {
@@ -98,8 +93,14 @@
     {
       "userId": "0",
       "idMovie": "76600",
-      "value": 10,
+      "value": 5,
       "id": 4
+    },
+    {
+      "userId": "0",
+      "idMovie": "594767",
+      "value": 5,
+      "id": 5
     }
   ]
 }
