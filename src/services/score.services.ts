@@ -50,7 +50,7 @@ export default {
       const response = await axios.get(
         `${API_URL}votes?idMovie=${idMovie}&userId=${userId}`
       );
-      if (response.data[0]) { 
+      if (response.data[0]) {
         return response.data[0].value;
       } else {
         return undefined;
@@ -58,6 +58,19 @@ export default {
     } catch (error) {
       console.log(error);
       return undefined;
+    }
+  },
+
+  async userVotes(idMovie: string) {
+    try {
+      const response = await axios.get(`${API_URL}votes?idMovie=${idMovie}`);
+      if (response.data[0]) {
+        console.log(response.data);
+      } else {
+        console.log('no hay usuarios');
+      }
+    } catch (error) {
+      console.log(error);
     }
   },
 };

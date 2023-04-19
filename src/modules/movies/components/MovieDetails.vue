@@ -62,13 +62,19 @@
           ><q-btn v-else @click="addfavorites" color="secondary"
             >quitar de favoritos</q-btn
           >
-          <q-btn @click="openDialog" v-if="getUser" class="q-ml-md" color="secondary"
+          <q-btn
+            @click="openDialog"
+            v-if="getUser"
+            class="q-ml-md"
+            color="secondary"
             >califica esta pelicula</q-btn
           >
         </div>
       </div>
     </div>
   </q-card>
+
+  <movie-location ref="movieLocation" :id="id" />
 
   <trailers-movies :id="id" />
 
@@ -106,7 +112,9 @@ import { mapGetters, mapMutations } from 'vuex';
 import authService from '@/services/auth.services';
 import MovieDialog from '@/modules/movies/components/MovieDialog.vue';
 import scoreService from '@/services/score.services';
-import trailersMovies from '@/modules/movies/components/TrailersMovies.vue'
+import trailersMovies from '@/modules/movies/components/TrailersMovies.vue';
+import MovieLocation from '@/modules/movies/components/MovieLocation.vue';
+
 interface Actors {
   id: number;
   cast: [];
@@ -128,7 +136,7 @@ interface MyComponentState {
 }
 
 export default defineComponent({
-  components: { MovieDialog, trailersMovies },
+  components: { MovieDialog, trailersMovies, MovieLocation },
   name: 'MovieDetails',
   props: {
     id: {
@@ -150,7 +158,7 @@ export default defineComponent({
   methods: {
     ...mapMutations('movie', ['setMovieId']),
     ...mapMutations('movie', ['setDefaultValue']),
-
+    ...mapMutations('movie', ['setShouldUpdate']),
     async addfavorites() {
       if (this.getId.toString() && !this.loadButton) {
         await authService.addMovie(this.id, this.getId.toString());
@@ -176,7 +184,7 @@ export default defineComponent({
       this.showDialog = false;
       await scoreService.votingMovie(this.getId.toString(), this.id, value);
       this.votingaccounts = await scoreService.reviewVoting(this.id);
-      
+      this.setShouldUpdate();
     },
   },
   computed: {
@@ -184,10 +192,8 @@ export default defineComponent({
     ...mapGetters('auth', ['getId']),
   },
   async mounted() {
-    
     this.movieDetails = await moviesService.getByidMovie(this.id);
     this.actors = await moviesService.getActorsByMovie(this.id);
-    
 
     this.director = this.actors.crew.find(
       (member) => member.job === 'Director'
@@ -197,10 +203,10 @@ export default defineComponent({
       this.id,
       this.getId.toString()
     );
-    
+
     this.loadButton = this.idForRemove !== -1;
     this.votingaccounts = await scoreService.reviewVoting(this.id);
-    
+
     this.setMovieId(this.id);
   },
 });

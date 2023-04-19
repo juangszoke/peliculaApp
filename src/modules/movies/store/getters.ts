@@ -9,6 +9,9 @@ const getters: GetterTree<movieState, StateInterface> = {
   getMovieId(state) {
     return state.selectedMovie;
   },
+  getShouldUpdate(state) {
+    return state.shouldUpdate;
+  },
 };
 
 export default getters;

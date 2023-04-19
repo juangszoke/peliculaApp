@@ -11,6 +11,9 @@ const mutation: MutationTree<movieState> = {
   setDefaultValue(state) {
     state.selectedMovie = undefined;
   },
+  setShouldUpdate(state) {
+    state.shouldUpdate = !state.shouldUpdate;
+  },
 };
 
 export default mutation;
