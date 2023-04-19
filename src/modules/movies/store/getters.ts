@@ -12,6 +12,9 @@ const getters: GetterTree<movieState, StateInterface> = {
   getShouldUpdate(state) {
     return state.shouldUpdate;
   },
+  getFilterMovie(state){
+    return state.filterMovie
+  }
 };
 
 export default getters;

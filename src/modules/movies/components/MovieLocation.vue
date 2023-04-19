@@ -1,5 +1,7 @@
 <template>
-  <h3>Ubicacion</h3>
+  <h3 class="q-ml-md">Ubicacion</h3>
+  <h6 v-if="!mode" class="q-ml-md">Paises productores de la pelicula</h6>
+  <h6 v-if="mode" class="q-ml-md">Localización de usuarios que han calificado la pelicula</h6>
   <q-toggle class="q-mr-md" v-model="mode" color="white" label="users" />
 
   <div v-if="!mode" class="mapita">
@@ -16,7 +18,7 @@
         :lat-lng="coordinate"
         draggable
       >
-        <l-tooltip> Productor </l-tooltip>
+        <l-tooltip> Pais productor </l-tooltip>
       </l-marker>
     </l-map>
   </div>
@@ -35,7 +37,7 @@
         :lat-lng="coordinates_users[index]"
         draggable
       >
-        <l-tooltip> {{ names[index] }} {{ vote.value }} </l-tooltip>
+        <l-tooltip> Nombres: {{ names[index] }}  Puntaje: {{ vote.value }} </l-tooltip>
       </l-marker>
     </l-map>
   </div>

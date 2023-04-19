@@ -50,7 +50,7 @@
 import moviesService from '../../../services/movies.services';
 import Movies from '../../../interfaces/movies';
 import { defineComponent } from 'vue';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 interface MyComponentState {
   populares: Movies[];
@@ -153,6 +153,7 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations('movie', ['setDefaultValue']),
+    ...mapMutations('movie', ['setFilterdefault']),
     async newPage() {
       this.page += 1;
       if (this.selectedGenres.length === 0) {
@@ -178,6 +179,7 @@ export default defineComponent({
       return this.selectedGenres.includes(this.genres[index].id);
     },
     async filter() {
+      this.setFilterdefault();
       this.page = 1;
       if (this.selectedGenres.length === 0) {
         this.populares = await moviesService.getPopular(this.page);
@@ -188,11 +190,26 @@ export default defineComponent({
         );
       }
     },
+    async loadMovies(){
+      console.log('cargar filtrado')
+    }
   },
 
   async mounted() {
     this.populares = await moviesService.getPopular(this.page);
   },
+  computed:{
+    ...mapGetters('movie', ['getFilterMovie']),
+  },
+  watch:{
+    async getFilterMovie(){
+      if(this.getFilterMovie){
+        await this.loadMovies()
+      }else{
+        console.log('desactivado')
+      }
+    }
+  }
 });
 </script>
 

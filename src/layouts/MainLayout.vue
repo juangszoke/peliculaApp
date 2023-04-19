@@ -10,12 +10,18 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-
+          <q-toolbar-title>
+        
+        Filtros
+        <filter-movies />
+      </q-toolbar-title>
         <template v-if="nombre">
           <q-toolbar-title> Bienvenido {{ nombre }} </q-toolbar-title>
+          
           <q-toggle class="q-mr-md" v-model="mode" color="white" label="Dark mode"/>
           <q-btn flat @click="OnLogOut">Cerrar sesion</q-btn>
         </template>
+        
         <template v-else>
           <q-toolbar-title> Bienvenido </q-toolbar-title>
           <q-toggle class="q-mr-md" v-model="mode" color="white" label="Dark mode" />
@@ -75,6 +81,7 @@ import { defineComponent } from 'vue';
 
 import { mapMutations } from 'vuex';
 import { mapGetters } from 'vuex';
+import FilterMovies from '@/modules/movies/components/FilterMovies.vue'
 
 interface MyComponentState {
   linksList: items[];
@@ -90,7 +97,9 @@ interface items {
 
 export default defineComponent({
   name: 'MainLayout',
-
+  components:{
+    FilterMovies
+  },
   data(): MyComponentState {
     return {
       leftDrawerOpen: false,
@@ -141,3 +150,6 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+</style>
