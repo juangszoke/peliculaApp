@@ -47,7 +47,7 @@ export default {
   async movieByUser(userId: string) {
     try {
       const response = await axios.get(`${API_URL}favorites?userId=${userId}`);
-      console.log(response);
+      
       return response.data;
     } catch (error) {
       console.log(error);

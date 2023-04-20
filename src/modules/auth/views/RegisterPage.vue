@@ -136,7 +136,7 @@ export default defineComponent({
 
       try {
         this.error = await this.register(this.user);
-        console.log(this.error)
+        
         if(this.error){
            this.$q.notify({
               type: 'negative',

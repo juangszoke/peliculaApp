@@ -42,7 +42,7 @@ const actions: ActionTree<AuthState, StateInterface> = {
     },
     user: User
   ) {
-    console.log(user)
+  
    return axios
       .get(`http://localhost:3000/users?user=${user.user}`)
       .then((response) => {

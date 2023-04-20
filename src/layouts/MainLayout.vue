@@ -122,7 +122,7 @@ export default defineComponent({
     },
     toggleDarkMode() {
       this.mode = !this.mode;
-      console.log(this.mode);
+     
     },
   },
   computed: {

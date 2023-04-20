@@ -26,7 +26,7 @@
           </l-tooltip>
         </l-marker>
       </template>
-      <template v-if="!mode">
+      <template v-if="!mode && coordinates[0]">
         <l-marker
         v-for="(coordinate, index) in coordinates"
         :key="index"

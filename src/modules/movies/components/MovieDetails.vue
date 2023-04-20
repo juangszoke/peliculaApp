@@ -116,6 +116,7 @@ import MovieDialog from '@/modules/movies/components/MovieDialog.vue';
 import scoreService from '@/services/score.services';
 import trailersMovies from '@/modules/movies/components/TrailersMovies.vue';
 import MovieLocation from '@/modules/movies/components/MovieLocation.vue';
+import { useQuasar, QVueGlobals   } from 'quasar'
 
 interface Actors {
   id: number;
@@ -135,6 +136,7 @@ interface MyComponentState {
   showDialog: boolean;
   idForRemove: number;
   votingaccounts: number;
+  $q: QVueGlobals 
 }
 
 export default defineComponent({
@@ -147,6 +149,7 @@ export default defineComponent({
     },
   },
   data(): MyComponentState {
+     const $q = useQuasar()
     return {
       movieDetails: {} as Movies,
       actors: {} as Actors,
@@ -155,6 +158,7 @@ export default defineComponent({
       idForRemove: -1,
       showDialog: false,
       votingaccounts: 0,
+      $q
     };
   },
   methods: {
@@ -173,7 +177,11 @@ export default defineComponent({
         await authService.removeMovie(this.idForRemove.toString());
         this.loadButton = !this.loadButton;
       } else {
-        console.log('no está loggeado');
+        
+        this.$q.notify({
+            type: 'negative',
+            message: 'Debes estar loggeado'
+          })
       }
     },
     openDialog() {
@@ -195,7 +203,7 @@ export default defineComponent({
   },
   async mounted() {
     this.movieDetails = await moviesService.getByidMovie(this.id);
-    console.log(this.movieDetails.genre_ids)
+    
     this.actors = await moviesService.getActorsByMovie(this.id);
 
     this.director = this.actors.crew.find(

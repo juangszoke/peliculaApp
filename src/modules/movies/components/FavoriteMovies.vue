@@ -67,14 +67,13 @@ export default defineComponent({
   methods: {
     async deleteMovie(id: number) {
       await authService.removeMovie(this.movies[id].id.toString());
-      console.log(id);
-      console.log(this.movies);
+      
       if (id === 0) {
         this.movies.shift();
       } else {
         this.movies.splice(id, 1);
       }
-      console.log(this.movies);
+      
       this.moviesinfo = await movieServices.getMoviesFavorites(this.movies);
     },
   },

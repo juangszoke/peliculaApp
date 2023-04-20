@@ -27,33 +27,11 @@
       "name": "ivan",
       "email": "ivan@gmail.com",
       "password": "123456",
-      "phone_number": "482364732",
-      "country": "Alemania",
-      "city": "berlin",
-      "genre": "fdsgfv",
+      "phone_number": "432423",
+      "country": "España",
+      "city": "Sevilla",
+      "genre": "horror",
       "id": 2
-    },
-    {
-      "user": "ivan",
-      "name": "ivan",
-      "email": "ivan@gmail.com",
-      "password": "ivan",
-      "phone_number": "4872343",
-      "country": "Cabo Verde",
-      "city": "cucuta",
-      "genre": "ola",
-      "id": 3
-    },
-    {
-      "user": "david",
-      "name": "david",
-      "email": "david",
-      "password": "351631526",
-      "phone_number": "438234",
-      "country": "Chipre",
-      "city": "fdsfs",
-      "genre": "gfdgfd",
-      "id": 4
     }
   ],
   "favorites": [
@@ -111,6 +89,11 @@
       "userId": "0",
       "idMovie": "809",
       "id": 25
+    },
+    {
+      "userId": "2",
+      "idMovie": "758323",
+      "id": 26
     }
   ],
   "votes": [
@@ -147,7 +130,7 @@
     {
       "userId": "0",
       "idMovie": "594767",
-      "value": 5,
+      "value": 9,
       "id": 5
     },
     {
@@ -299,6 +282,48 @@
       "idMovie": "809",
       "value": 7,
       "id": 30
+    },
+    {
+      "userId": "2",
+      "idMovie": "502356",
+      "value": 8,
+      "id": 31
+    },
+    {
+      "userId": "2",
+      "idMovie": "594767",
+      "value": 6,
+      "id": 32
+    },
+    {
+      "userId": "0",
+      "idMovie": "758323",
+      "value": 7,
+      "id": 33
+    },
+    {
+      "userId": "2",
+      "idMovie": "677179",
+      "value": 4,
+      "id": 34
+    },
+    {
+      "userId": "2",
+      "idMovie": "638974",
+      "value": 6,
+      "id": 35
+    },
+    {
+      "userId": "2",
+      "idMovie": "736790",
+      "value": 6,
+      "id": 36
+    },
+    {
+      "userId": "2",
+      "idMovie": "842945",
+      "value": 2,
+      "id": 37
     }
   ]
 }
