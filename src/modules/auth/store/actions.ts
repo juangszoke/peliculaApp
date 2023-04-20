@@ -42,10 +42,12 @@ const actions: ActionTree<AuthState, StateInterface> = {
     },
     user: User
   ) {
-    axios
+    console.log(user)
+   return axios
       .get(`http://localhost:3000/users?user=${user.user}`)
       .then((response) => {
         if (response.data[0]) {
+          console.log('usuario registrado')
           return true;
         } else {
           axios
@@ -60,7 +62,8 @@ const actions: ActionTree<AuthState, StateInterface> = {
               genre: user.genre,
             })
             .then(() => {
-              this.$router.push('/auth');
+              this.$router.push('/auth')
+              return false
             })
             .catch((error) => {
               console.log(error);

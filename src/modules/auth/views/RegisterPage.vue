@@ -79,7 +79,7 @@
               placeholder="Ingresa tu ciudad"
               :rules="[(val) => !!val || 'Debes ingresar la ciudad']"
             />
-            <p class="q-mb-xs text-bold">Genero</p>
+            <p class="q-mb-xs text-bold">Genero favorito</p>
             <q-input
               class="inputs"
               outlined
@@ -98,7 +98,7 @@
         <router-link class="q-pa-md enlace" to="/auth">
           <q-btn flat color="primary">Log in</q-btn>
         </router-link>
-        <p v-if="error">usuario ya registrado</p>
+        
       </q-card-section>
     </q-card>
   </div>
@@ -124,7 +124,7 @@ export default defineComponent({
         country: null,
         city: null,
         genre: null,
-        error: null,
+        error: false,
       },
       countries: COUNTRIES,
       $q
@@ -132,14 +132,21 @@ export default defineComponent({
   },
   methods: {
     ...mapActions('auth', ['register']),
-    submitForm() {
-      this.error = this.register(this.user);
-      if(this.error){
-        this.$q.notify({
-          type: 'negative',
-          message: 'Usuario ya registrado'
-        })
+    async submitForm() {
+
+      try {
+        this.error = await this.register(this.user);
+        console.log(this.error)
+        if(this.error){
+           this.$q.notify({
+              type: 'negative',
+              message: 'usuario ya registrado'
+            })
+        }
+      } catch (error) {
+        console.log(error);
       }
+      
     },
   },
 });

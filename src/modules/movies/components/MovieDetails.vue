@@ -312,4 +312,12 @@ export default defineComponent({
   font-size: 12px;
   color: #666;
 }
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1rem;
+}
+h6 {
+  font-weight: bold;
+}
 </style>

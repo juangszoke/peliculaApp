@@ -23,15 +23,37 @@
       "id": 1
     },
     {
-      "user": null,
-      "name": null,
-      "email": null,
-      "password": null,
-      "phone_number": null,
-      "country": null,
-      "city": null,
-      "genre": null,
+      "user": "ivanf",
+      "name": "ivan",
+      "email": "ivan@gmail.com",
+      "password": "123456",
+      "phone_number": "482364732",
+      "country": "Alemania",
+      "city": "berlin",
+      "genre": "fdsgfv",
       "id": 2
+    },
+    {
+      "user": "ivan",
+      "name": "ivan",
+      "email": "ivan@gmail.com",
+      "password": "ivan",
+      "phone_number": "4872343",
+      "country": "Cabo Verde",
+      "city": "cucuta",
+      "genre": "ola",
+      "id": 3
+    },
+    {
+      "user": "david",
+      "name": "david",
+      "email": "david",
+      "password": "351631526",
+      "phone_number": "438234",
+      "country": "Chipre",
+      "city": "fdsfs",
+      "genre": "gfdgfd",
+      "id": 4
     }
   ],
   "favorites": [

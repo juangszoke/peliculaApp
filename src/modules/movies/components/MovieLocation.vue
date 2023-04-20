@@ -1,12 +1,12 @@
 <template>
-  <h3 class="q-ml-md">Ubicacion</h3>
+  <h3 class="q-ml-md q-pt-md">Ubicacion</h3>
   <h6 v-if="!mode" class="q-ml-md">Paises productores de la pelicula</h6>
   <h6 v-if="mode" class="q-ml-md">
     Localización de usuarios que han calificado la pelicula
   </h6>
-  <q-toggle class="q-mr-md" v-model="mode" color="white" label="users" />
+  <q-toggle class="q-mr-md q-pl-lg" v-model="mode" label="Usuarios que hayan calificado la pelicula" />
 
-  <div class="mapita">
+  <div class="mapita q-pl-lg">
     <l-map ref="map" v-model:zoom="zoom" :center="[50, 10]">
       <l-tile-layer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -163,5 +163,13 @@ export default defineComponent({
 .mapita {
   height: 550px;
   width: 800px;
+}
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1rem;
+}
+h6 {
+  font-weight: bold;
 }
 </style>
