@@ -108,10 +108,12 @@
 import { defineComponent } from 'vue';
 import { mapActions } from 'vuex';
 import { COUNTRIES } from '@/helpers/countries';
+import { useQuasar } from 'quasar'
 export default defineComponent({
   name: 'RegisterPage',
 
   data() {
+    const $q = useQuasar()
     return {
       user: {
         name: null,
@@ -125,12 +127,19 @@ export default defineComponent({
         error: null,
       },
       countries: COUNTRIES,
+      $q
     };
   },
   methods: {
     ...mapActions('auth', ['register']),
     submitForm() {
       this.error = this.register(this.user);
+      if(this.error){
+        this.$q.notify({
+          type: 'negative',
+          message: 'Usuario ya registrado'
+        })
+      }
     },
   },
 });

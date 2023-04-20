@@ -1,6 +1,7 @@
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../../../store/index';
 import { AuthState } from './state';
+
 import User from '../../../interfaces/user';
 import axios from 'axios';
 
@@ -25,6 +26,7 @@ const actions: ActionTree<AuthState, StateInterface> = {
           commit('login', { user: user, name: response.data[0].name, id: response.data[0].id});
           return false;
         } else {
+          
           return true;
         }
       })

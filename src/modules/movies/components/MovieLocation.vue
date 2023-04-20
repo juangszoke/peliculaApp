@@ -6,7 +6,7 @@
   </h6>
   <q-toggle class="q-mr-md" v-model="mode" color="white" label="users" />
 
-  <div v-if="!mode" class="mapita">
+  <div class="mapita">
     <l-map ref="map" v-model:zoom="zoom" :center="[50, 10]">
       <l-tile-layer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -14,26 +14,7 @@
         name="OpenStreetMap"
       >
       </l-tile-layer>
-      <l-marker
-        v-for="(coordinate, index) in coordinates"
-        :key="index"
-        :lat-lng="coordinate"
-        draggable
-      >
-        <l-tooltip> Pais productor </l-tooltip>
-      </l-marker>
-    </l-map>
-  </div>
-
-  <div v-else class="mapita">
-    <l-map ref="map" v-model:zoom="zoom" :center="[50, 10]">
-      <l-tile-layer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        layer-type="base"
-        name="OpenStreetMap"
-      >
-      </l-tile-layer>
-      <template v-if="coordinates_users[0]">
+      <template v-if="coordinates_users[0] && mode">
         <l-marker
           v-for="(vote, index) in votes"
           :key="index"
@@ -45,8 +26,20 @@
           </l-tooltip>
         </l-marker>
       </template>
+      <template v-if="!mode">
+        <l-marker
+        v-for="(coordinate, index) in coordinates"
+        :key="index"
+        :lat-lng="coordinate"
+        draggable
+      >
+        <l-tooltip> Pais productor </l-tooltip>
+      </l-marker>
+        </template>
     </l-map>
   </div>
+  
+   
 </template>
 
 <script lang="ts">

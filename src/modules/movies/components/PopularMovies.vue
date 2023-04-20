@@ -52,7 +52,10 @@
       </div>
     </div>
   </div>
-  <q-btn v-if="!isFiltered" color="primary" @click="newPage"> ver mas </q-btn>
+  <div class="q-mt-md row full-width justify-center">
+      <q-btn v-if="!isFiltered" class="justify-center" color="secondary" @click="newPage"> ver mas </q-btn>
+  </div>
+  
 
   <div class="row q-my-lg q-mr-lg justify-end">
     <q-btn

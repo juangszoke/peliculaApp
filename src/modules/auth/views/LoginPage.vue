@@ -43,7 +43,6 @@
         <q-btn color="primary">inicio</q-btn>
       </router-link>
     </div>
-    <p v-if="error">usuario no registrado</p>
   </div>
 </template>
 
@@ -51,14 +50,17 @@
 import { defineComponent } from 'vue';
 import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex';
+import { useQuasar } from 'quasar'
 export default defineComponent({
   name: 'LoginPage',
 
   data() {
+    const $q = useQuasar()
     return {
       user: null,
       password: null,
       error: null,
+      $q
     };
   },
 
@@ -77,6 +79,13 @@ export default defineComponent({
           password,
           redirect: redirect,
         });
+
+        if(this.error){
+           this.$q.notify({
+              type: 'negative',
+              message: 'Usuario o clave incorrecta'
+            })
+        }
       } catch (error) {
         console.log(error);
       }

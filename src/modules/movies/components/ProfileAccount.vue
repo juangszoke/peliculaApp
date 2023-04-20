@@ -82,21 +82,27 @@ import User from '@/interfaces/user';
 import { defineComponent } from 'vue';
 import profileServices from '@/services/profile.services';
 import { mapGetters, mapMutations } from 'vuex';
+import { useQuasar, QVueGlobals   } from 'quasar'
 import profileDialog from '@/modules/movies/components/ProfileDialog.vue';
 
 interface MyComponentState {
   information: User[];
   showDialog: boolean;
+  $q: QVueGlobals  
 }
+
 export default defineComponent({
   name: 'ProfileAccount',
   components: {
     profileDialog,
   },
   data(): MyComponentState {
+
+    const $q = useQuasar()
     return {
       information: [],
       showDialog: false,
+      $q
     };
   },
   computed: {
@@ -122,7 +128,10 @@ export default defineComponent({
         this.information = await profileServices.profileInformation(this.getId);
         this.login({ user: user.user, name: user.name, id: user.id });
       } else {
-        console.log('ese usuario ya está registrado');
+         this.$q.notify({
+            type: 'negative',
+            message: 'Ese usuario ya está registrado'
+          })
       }
     },
   },

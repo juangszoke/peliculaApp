@@ -29,11 +29,9 @@
             <span v-if="index < movieDetails.genres.length - 1">, </span>
           </span>
         </div>
-        <div v-else class="movie-details__text-body1">
-          <span>no pertenece a ningun genero</span>
-        </div>
         <div class="movie-details__label">Sinopsis:</div>
-        <div class="movie-details__text-body1">{{ movieDetails.overview }}</div>
+        <div v-if="movieDetails.overview" class="movie-details__text-body1">{{ movieDetails.overview }}</div>
+        <div v-else class="movie-details__text-body1">No hay sipnasis asignada a la pelicula mostrada</div>
 
         <div class="row">
           <div class="column">
@@ -197,6 +195,7 @@ export default defineComponent({
   },
   async mounted() {
     this.movieDetails = await moviesService.getByidMovie(this.id);
+    console.log(this.movieDetails.genre_ids)
     this.actors = await moviesService.getActorsByMovie(this.id);
 
     this.director = this.actors.crew.find(
