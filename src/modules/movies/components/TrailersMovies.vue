@@ -11,6 +11,7 @@
     padding
     arrows
     class="slider text-white shadow-1 rounded-borders q-mt-md"
+    v-if="trailers"
   >
     <q-carousel-slide
       v-for="trailer in trailers"
@@ -35,6 +36,7 @@
       </div>
     </q-carousel-slide>
   </q-carousel>
+  <p v-if="error">No hay trailers para esta pelicula</p>
 </template>
 
 <script lang="ts">
@@ -45,6 +47,7 @@ import VueQrcode from 'vue-qrcode';
 interface MyComponentState {
   trailers: Trailer[];
   slide: string;
+  error: boolean;
 }
 
 interface Trailer {
@@ -65,6 +68,7 @@ export default defineComponent({
     return {
       trailers: [],
       slide: '',
+      error: false,
     };
   },
   async mounted() {
@@ -75,7 +79,8 @@ export default defineComponent({
     } else if (this.trailers) {
       this.trailers = this.trailers.slice(0, this.trailers.length);
     }
-    this.slide = this.trailers[0].name;
+    if (this.trailers[0]) this.slide = this.trailers[0].name;
+    else this.error = true;
   },
 });
 </script>

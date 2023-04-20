@@ -1,7 +1,9 @@
 <template>
   <h3 class="q-ml-md">Ubicacion</h3>
   <h6 v-if="!mode" class="q-ml-md">Paises productores de la pelicula</h6>
-  <h6 v-if="mode" class="q-ml-md">Localización de usuarios que han calificado la pelicula</h6>
+  <h6 v-if="mode" class="q-ml-md">
+    Localización de usuarios que han calificado la pelicula
+  </h6>
   <q-toggle class="q-mr-md" v-model="mode" color="white" label="users" />
 
   <div v-if="!mode" class="mapita">
@@ -31,14 +33,18 @@
         name="OpenStreetMap"
       >
       </l-tile-layer>
-      <l-marker
-        v-for="(vote, index) in votes"
-        :key="index"
-        :lat-lng="coordinates_users[index]"
-        draggable
-      >
-        <l-tooltip> Nombres: {{ names[index] }}  Puntaje: {{ vote.value }} </l-tooltip>
-      </l-marker>
+      <template v-if="coordinates_users[0]">
+        <l-marker
+          v-for="(vote, index) in votes"
+          :key="index"
+          :lat-lng="coordinates_users[index]"
+          draggable
+        >
+          <l-tooltip v-if="coordinates_users[index]">
+            Nombres: {{ names[index] }} Puntaje: {{ vote.value }}
+          </l-tooltip>
+        </l-marker>
+      </template>
     </l-map>
   </div>
 </template>
@@ -124,19 +130,22 @@ export default defineComponent({
 
     async loadUsers() {
       this.votes = await mapCoordinatesService.userVotes(this.id);
+
       if (this.votes) {
         for (const vote of this.votes) {
           this.users = await mapCoordinatesService.getUsers(vote.userId);
+
           if (this.users) {
             this.names.push(this.users[0]);
             const localizacion_aux = await mapCoordinatesService.getCoordinates(
               this.users[1]
             );
 
-            if (localizacion_aux)
+            if (localizacion_aux) {
               this.coordinates_users.push(
                 L.latLng(localizacion_aux[0], localizacion_aux[1])
               );
+            }
           }
         }
       }
@@ -150,8 +159,8 @@ export default defineComponent({
     ...mapGetters('movie', ['getShouldUpdate']),
   },
   watch: {
-    getShouldUpdate() {
-      this.loadUsers();
+    async getShouldUpdate() {
+      await this.loadUsers();
     },
   },
 });

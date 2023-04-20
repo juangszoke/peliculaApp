@@ -69,7 +69,7 @@
     {
       "userId": "0",
       "idMovie": "502356",
-      "value": 9,
+      "value": 7,
       "id": 0
     },
     {
@@ -119,6 +119,102 @@
       "idMovie": "315162",
       "value": 6,
       "id": 8
+    },
+    {
+      "userId": "0",
+      "idMovie": "676841",
+      "value": 2,
+      "id": 9
+    },
+    {
+      "userId": "0",
+      "idMovie": "816904",
+      "value": 4,
+      "id": 10
+    },
+    {
+      "userId": "0",
+      "idMovie": "640146",
+      "value": 4,
+      "id": 11
+    },
+    {
+      "userId": "0",
+      "idMovie": "1104040",
+      "value": 5,
+      "id": 12
+    },
+    {
+      "userId": "0",
+      "idMovie": "916224",
+      "value": 5,
+      "id": 13
+    },
+    {
+      "userId": "0",
+      "idMovie": "9607",
+      "value": 2,
+      "id": 14
+    },
+    {
+      "userId": "0",
+      "idMovie": "8940",
+      "value": 4,
+      "id": 15
+    },
+    {
+      "userId": "0",
+      "idMovie": "489931",
+      "value": 5,
+      "id": 16
+    },
+    {
+      "userId": "0",
+      "idMovie": "809107",
+      "value": 10,
+      "id": 17
+    },
+    {
+      "userId": "0",
+      "idMovie": "587092",
+      "value": 5,
+      "id": 18
+    },
+    {
+      "userId": "0",
+      "idMovie": "758009",
+      "value": 3,
+      "id": 19
+    },
+    {
+      "userId": "0",
+      "idMovie": "894246",
+      "value": 4,
+      "id": 20
+    },
+    {
+      "userId": "0",
+      "idMovie": "506574",
+      "value": 3,
+      "id": 21
+    },
+    {
+      "userId": "0",
+      "idMovie": "50337",
+      "value": 3,
+      "id": 22
+    },
+    {
+      "userId": "0",
+      "idMovie": "656676",
+      "value": 4,
+      "id": 23
+    },
+    {
+      "userId": "0",
+      "idMovie": "84105",
+      "value": 6,
+      "id": 24
     }
   ]
 }

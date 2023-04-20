@@ -10,9 +10,12 @@ export default {
       if (response.data.length > 0) {
         const latitude = parseFloat(response.data[0].lat);
         const longitude = parseFloat(response.data[0].lon);
+
         return [latitude, longitude];
       } else {
-        console.error('no encontré nada jeje');
+        console.error(
+          'no se encuentra el pais en la api, el pais es: ' + country
+        );
         return undefined;
       }
     } catch (error) {
