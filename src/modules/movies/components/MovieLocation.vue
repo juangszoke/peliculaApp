@@ -14,7 +14,7 @@
         name="OpenStreetMap"
       >
       </l-tile-layer>
-      <template v-if="coordinates_users[(coordinates_users.length - 1)] && mode && !getIsloading">
+      <template v-if=" mode && !getIsloading">
         <l-marker 
           v-for="(vote, index) in votes"
           :key="index"
