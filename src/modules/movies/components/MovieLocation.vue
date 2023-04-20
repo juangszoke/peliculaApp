@@ -125,6 +125,7 @@ export default defineComponent({
     async loadUsers() {
       this.votes = await mapCoordinatesService.userVotes(this.id);
       this.coordinates_users = []
+      this.names = []
       this.setLoadingMovies();
       if (this.votes) {
         for (const vote of this.votes) {
@@ -145,7 +146,6 @@ export default defineComponent({
         }
       }
       this.setLoadingMovies();
-      console.log(this.coordinates_users)
     },
   },
   async mounted() {

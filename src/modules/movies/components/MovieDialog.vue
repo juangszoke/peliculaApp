@@ -34,12 +34,13 @@
 import { defineComponent } from 'vue';
 import scoreService from '@/services/score.services';
 import { mapGetters } from 'vuex';
+import { useQuasar, QVueGlobals } from 'quasar';
 
 interface MyComponentState {
   options: number[];
   dialog: boolean;
   value: number | undefined;
-  
+  $q: QVueGlobals
 }
 export default defineComponent({
   name: 'ProfileDialog',
@@ -50,15 +51,23 @@ export default defineComponent({
       },
   },
   data(): MyComponentState {
+    const $q = useQuasar()
     return {
       dialog: true,
       value: undefined,
       options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      $q
     };
   },
   methods: {
     vote() {
+      if(this.value !== undefined)
       this.$emit('submit', this.value);
+      else
+      this.$q.notify({
+              type: 'negative',
+              message: 'debes asignar un valor'
+            })
     },
   },
   async mounted(){
