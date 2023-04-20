@@ -104,28 +104,36 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import { defineComponent } from 'vue';
 import { mapActions } from 'vuex';
 import { COUNTRIES } from '@/helpers/countries';
-import { useQuasar } from 'quasar'
+import { useQuasar, QVueGlobals } from 'quasar';
+import user from '@/interfaces/user'
+interface MyComponentState {
+  user: user;
+  countries: string[];
+  error: boolean;
+   $q: QVueGlobals  
+}
 export default defineComponent({
   name: 'RegisterPage',
 
-  data() {
+  data(): MyComponentState {
     const $q = useQuasar()
     return {
       user: {
-        name: null,
-        user: null,
-        email: null,
-        password: null,
-        phone_number: null,
-        country: null,
-        city: null,
-        genre: null,
-        error: false,
+        name: '',
+        user: '',
+        email: '',
+        password: '',
+        phone_number: undefined,
+        country: '',
+        city: '',
+        genre: '',
+        id: ''
       },
+      error: false,
       countries: COUNTRIES,
       $q
     };

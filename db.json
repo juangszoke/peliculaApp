@@ -32,6 +32,17 @@
       "city": "Sevilla",
       "genre": "horror",
       "id": 2
+    },
+    {
+      "user": "daviddelgado",
+      "name": "david",
+      "email": "david@gmail.com",
+      "password": "123456",
+      "phone_number": "13214325",
+      "country": "Argentina",
+      "city": "Cordoba",
+      "genre": "aventura",
+      "id": 3
     }
   ],
   "favorites": [
@@ -94,6 +105,11 @@
       "userId": "2",
       "idMovie": "758323",
       "id": 26
+    },
+    {
+      "userId": "3",
+      "idMovie": "502356",
+      "id": 27
     }
   ],
   "votes": [
@@ -324,6 +340,108 @@
       "idMovie": "842945",
       "value": 2,
       "id": 37
+    },
+    {
+      "userId": "3",
+      "idMovie": "594767",
+      "value": 3,
+      "id": 38
+    },
+    {
+      "userId": "3",
+      "idMovie": "676841",
+      "value": 6,
+      "id": 39
+    },
+    {
+      "userId": "3",
+      "idMovie": "76600",
+      "value": 5,
+      "id": 40
+    },
+    {
+      "userId": "3",
+      "idMovie": "640146",
+      "value": 7,
+      "id": 41
+    },
+    {
+      "userId": "3",
+      "idMovie": "849869",
+      "value": 3,
+      "id": 42
+    },
+    {
+      "userId": "3",
+      "idMovie": "758323",
+      "value": 3,
+      "id": 43
+    },
+    {
+      "userId": "3",
+      "idMovie": "980078",
+      "value": 1,
+      "id": 44
+    },
+    {
+      "userId": "3",
+      "idMovie": "1084225",
+      "value": 5,
+      "id": 45
+    },
+    {
+      "userId": "3",
+      "idMovie": "804150",
+      "value": 5,
+      "id": 46
+    },
+    {
+      "userId": "3",
+      "idMovie": "8966",
+      "value": 5,
+      "id": 47
+    },
+    {
+      "userId": "3",
+      "idMovie": "842945",
+      "value": 4,
+      "id": 48
+    },
+    {
+      "userId": "0",
+      "idMovie": "980078",
+      "value": 2,
+      "id": 49
+    },
+    {
+      "userId": "0",
+      "idMovie": "638974",
+      "value": 4,
+      "id": 50
+    },
+    {
+      "userId": "3",
+      "idMovie": "816904",
+      "value": 2,
+      "id": 51
+    },
+    {
+      "userId": "3",
+      "idMovie": "920",
+      "value": 6,
+      "id": 52
+    },
+    {
+      "userId": "3",
+      "idMovie": "1033219",
+      "value": 6,
+      "id": 53
+    },
+    {
+      "userId": "3",
+      "idMovie": "677179",
+      "value": 2,
+      "id": 54
     }
   ]
 }

@@ -46,20 +46,28 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import { defineComponent } from 'vue';
 import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex';
-import { useQuasar } from 'quasar'
+import { useQuasar, QVueGlobals } from 'quasar';
+
+interface MyComponentState {
+  user: string;
+  password: string;
+  error: boolean;
+   $q: QVueGlobals  
+}
+
 export default defineComponent({
   name: 'LoginPage',
 
-  data() {
+  data(): MyComponentState {
     const $q = useQuasar()
     return {
-      user: null,
-      password: null,
-      error: null,
+      user: '',
+      password: '',
+      error: false,
       $q
     };
   },

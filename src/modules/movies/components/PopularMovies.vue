@@ -43,7 +43,7 @@
             <p>Fecha de estreno: {{ movie.release_date }}</p>
           </q-card-section>
         </q-card>
-        <template v-if="!populares[0] && getIsloading">
+        <template v-if="!populares[0] && !getIsloading">
           <div class="column">
             <h1>Error al cargar la pagina</h1>
             <h3>No hay mas peliculas por mostrar</h3>
@@ -246,8 +246,9 @@ export default defineComponent({
   },
 
   async mounted() {
+    this.setLoadingMovies()
     if (this.getFilterMovie) {
-      this.setLoadingMovies()
+      
       this.populares = await moviesService.getFilterMovies(
         this.getYearMovie,
         this.getRateMovie,

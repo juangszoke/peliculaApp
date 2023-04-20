@@ -14,8 +14,8 @@
         name="OpenStreetMap"
       >
       </l-tile-layer>
-      <template v-if="coordinates_users[0] && mode">
-        <l-marker
+      <template v-if="coordinates_users[(coordinates_users.length - 1)] && mode && !getIsloading">
+        <l-marker 
           v-for="(vote, index) in votes"
           :key="index"
           :lat-lng="coordinates_users[index]"
@@ -26,7 +26,7 @@
           </l-tooltip>
         </l-marker>
       </template>
-      <template v-if="!mode && coordinates[0]">
+      <template v-if="!mode && coordinates[coordinates.length - 1]">
         <l-marker
         v-for="(coordinate, index) in coordinates"
         :key="index"
@@ -35,7 +35,7 @@
       >
         <l-tooltip> Pais productor </l-tooltip>
       </l-marker>
-        </template>
+      </template>
     </l-map>
   </div>
   
@@ -102,9 +102,10 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations('movie', ['setShouldUpdate']),
+    ...mapMutations('movie', ['setLoadingMovies']),
     async loadCountryProductor() {
       this.movieDetails = await moviesService.getByidMovie(this.id);
-
+      this.coordinates = []
       const productionCountryNames = this.movieDetails.production_countries.map(
         (country) => country.name
       );
@@ -123,7 +124,8 @@ export default defineComponent({
 
     async loadUsers() {
       this.votes = await mapCoordinatesService.userVotes(this.id);
-
+      this.coordinates_users = []
+      this.setLoadingMovies();
       if (this.votes) {
         for (const vote of this.votes) {
           this.users = await mapCoordinatesService.getUsers(vote.userId);
@@ -142,6 +144,8 @@ export default defineComponent({
           }
         }
       }
+      this.setLoadingMovies();
+      console.log(this.coordinates_users)
     },
   },
   async mounted() {
@@ -150,6 +154,7 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters('movie', ['getShouldUpdate']),
+    ...mapGetters('movie', ['getIsloading'])
   },
   watch: {
     async getShouldUpdate() {

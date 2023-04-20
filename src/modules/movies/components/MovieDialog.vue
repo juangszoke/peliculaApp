@@ -34,6 +34,13 @@
 import { defineComponent } from 'vue';
 import scoreService from '@/services/score.services';
 import { mapGetters } from 'vuex';
+
+interface MyComponentState {
+  options: number[];
+  dialog: boolean;
+  value: number | undefined;
+  
+}
 export default defineComponent({
   name: 'ProfileDialog',
   props: {
@@ -42,7 +49,7 @@ export default defineComponent({
         required: true,
       },
   },
-  data() {
+  data(): MyComponentState {
     return {
       dialog: true,
       value: undefined,

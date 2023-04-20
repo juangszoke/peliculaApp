@@ -4,7 +4,7 @@ interface User {
   user: string;
   email: string;
   password: string;
-  phone_number: number;
+  phone_number: number | undefined;
   country: string;
   city: string;
   genre: string;
