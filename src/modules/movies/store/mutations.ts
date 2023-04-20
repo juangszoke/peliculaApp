@@ -32,9 +32,12 @@ const mutation: MutationTree<movieState> = {
     state.filterMovie = false;
   },
 
-  setFilterMovie(state) {
+  setFilterMovie( state ) {
     state.filterMovie = false;
   },
+  setLoadingMovies( state ){
+    state.isLoading = !state.isLoading
+  }
 };
 
 export default mutation;

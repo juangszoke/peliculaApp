@@ -9,6 +9,7 @@ export interface movieState {
   rateMovie: range;
   durationMovie: range;
   adult: boolean;
+  isLoading: boolean;
 }
 
 function state(): movieState {
@@ -21,6 +22,7 @@ function state(): movieState {
     durationMovie: {} as range,
     adult: false,
     filterMovie: false,
+    isLoading: false
   };
 }
 

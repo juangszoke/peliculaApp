@@ -30,6 +30,9 @@ const getters: GetterTree<movieState, StateInterface> = {
   getAdultMovie(state) {
     return state.adult;
   },
+  getIsloading(state){
+    return state.isLoading
+  }
 };
 
 export default getters;

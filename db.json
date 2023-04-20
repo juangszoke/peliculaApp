@@ -6,7 +6,7 @@
       "email": "juan@gmail.com",
       "password": "123456",
       "phone_number": "432564343",
-      "country": "Colombia",
+      "country": "Haití",
       "city": "Cucuta",
       "genre": "Terror",
       "id": 0
@@ -21,6 +21,17 @@
       "city": "sc",
       "genre": "horror",
       "id": 1
+    },
+    {
+      "user": null,
+      "name": null,
+      "email": null,
+      "password": null,
+      "phone_number": null,
+      "country": null,
+      "city": null,
+      "genre": null,
+      "id": 2
     }
   ],
   "favorites": [
@@ -68,6 +79,11 @@
       "userId": "0",
       "idMovie": "700391",
       "id": 23
+    },
+    {
+      "userId": "0",
+      "idMovie": "705612",
+      "id": 24
     }
   ],
   "votes": [
@@ -226,6 +242,18 @@
       "idMovie": "442040",
       "value": 10,
       "id": 25
+    },
+    {
+      "userId": "0",
+      "idMovie": "238713",
+      "value": 8,
+      "id": 26
+    },
+    {
+      "userId": "0",
+      "idMovie": "800597",
+      "value": 1,
+      "id": 27
     }
   ]
 }

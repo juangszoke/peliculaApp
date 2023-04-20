@@ -43,9 +43,11 @@
             <p>Fecha de estreno: {{ movie.release_date }}</p>
           </q-card-section>
         </q-card>
-        <template v-if="!populares[0]">
-          <h1>Error al cargar la pagina</h1>
-          <h3>No hay mas peliculas por mostrar</h3>
+        <template v-if="!populares[0] && getIsloading">
+          <div class="column">
+            <h1>Error al cargar la pagina</h1>
+            <h3>No hay mas peliculas por mostrar</h3>
+          </div>
         </template>
       </div>
     </div>
@@ -177,6 +179,7 @@ export default defineComponent({
     ...mapMutations('movie', ['setDefaultValue']),
     ...mapMutations('movie', ['setFilterdefault']),
     ...mapMutations('movie', ['setFilterMovie']),
+    ...mapMutations('movie', ['setLoadingMovies']),
     async newPage() {
       this.page += 1;
       if (this.selectedGenres.length === 0) {
@@ -215,7 +218,9 @@ export default defineComponent({
       }
     },
     async loadMovies() {
+      this.setLoadingMovies()
       this.populares = [];
+      
       this.populares = await moviesService.getFilterMovies(
         this.getYearMovie,
         this.getRateMovie,
@@ -224,6 +229,7 @@ export default defineComponent({
         this.getAdultMovie,
         this.page
       );
+      this.setLoadingMovies()
       this.isFiltered = true;
     },
     nextPage() {
@@ -238,6 +244,7 @@ export default defineComponent({
 
   async mounted() {
     if (this.getFilterMovie) {
+      this.setLoadingMovies()
       this.populares = await moviesService.getFilterMovies(
         this.getYearMovie,
         this.getRateMovie,
@@ -247,9 +254,13 @@ export default defineComponent({
         this.page
       );
       this.isFiltered = true;
+      
+      
     } else {
       this.populares = await moviesService.getPopular(this.page);
     }
+    this.setFilterMovie();
+    this.setLoadingMovies()
   },
   computed: {
     ...mapGetters('movie', ['getFilterMovie']),
@@ -258,6 +269,7 @@ export default defineComponent({
     ...mapGetters('movie', ['getDurationMovie']),
     ...mapGetters('movie', ['getGenresMovie']),
     ...mapGetters('movie', ['getAdultMovie']),
+    ...mapGetters('movie', ['getIsloading']),
   },
   watch: {
     async getFilterMovie() {
