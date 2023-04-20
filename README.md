@@ -11,15 +11,15 @@ npm install
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
+yarn quasar dev
+or
 quasar dev
 ```
 
 
-### Lint the files
+### start json server
 ```bash
-yarn lint
-# or
-npm run lint
+json-server --watch db.json
 ```
 
 
