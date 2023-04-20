@@ -17,16 +17,20 @@
         <div v-if="director?.name" class="movie-details__text-subtitle1">
           {{ director.name }}
         </div>
+        <div v-else>No hay un director registrado</div>
         <div class="movie-details__label">Fecha de estreno:</div>
         <div class="movie-details__text-subtitle1">
           {{ movieDetails.release_date }}
         </div>
         <div class="movie-details__label">Géneros:</div>
-        <div class="movie-details__text-body1">
+        <div v-if="movieDetails.genres" class="movie-details__text-body1">
           <span v-for="(genre, index) in movieDetails.genres" :key="index">
             {{ genre.name }}
             <span v-if="index < movieDetails.genres.length - 1">, </span>
           </span>
+        </div>
+        <div v-else class="movie-details__text-body1">
+          <span>no pertenece a ningun genero</span>
         </div>
         <div class="movie-details__label">Sinopsis:</div>
         <div class="movie-details__text-body1">{{ movieDetails.overview }}</div>

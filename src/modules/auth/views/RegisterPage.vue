@@ -59,14 +59,17 @@
               :rules="[(val) => !!val || 'Debes ingresar tu numero']"
             />
             <p class="q-mb-xs text-bold">Pais</p>
-            <q-input
+            <q-select
               class="q-ma-none inputs"
               outlined
               v-model="user.country"
               dense
-              placeholder="Ingresa tu pais"
-              :rules="[(val) => !!val || 'Debes ingresar un usuario']"
-            />
+              placeholder="Selecciona tu pais"
+              :rules="[(val) => !!val || 'Debes seleccionar un pais']"
+              :options="countries"
+            >
+            </q-select>
+
             <p class="q-mb-xs text-bold">Ciudad</p>
             <q-input
               class="q-ma-none inputs"
@@ -104,7 +107,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { mapActions } from 'vuex';
-
+import { COUNTRIES } from '@/helpers/countries';
 export default defineComponent({
   name: 'RegisterPage',
 
@@ -121,6 +124,7 @@ export default defineComponent({
         genre: null,
         error: null,
       },
+      countries: COUNTRIES,
     };
   },
   methods: {

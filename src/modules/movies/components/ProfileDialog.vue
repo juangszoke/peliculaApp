@@ -44,13 +44,16 @@
             class="q-mb-md"
             :rules="[(val) => !!val || 'Este campo es obligatorio.']"
           />
-          <q-input
+          <q-select
+            class="q-ma-none inputs"
             v-model="localUser.country"
-            label="Pais"
             dense
-            class="q-mb-md"
-            :rules="[(val) => !!val || 'Este campo es obligatorio.']"
-          />
+            placeholder="Selecciona tu pais"
+            :rules="[(val) => !!val || 'Debes seleccionar un pais']"
+            :options="countries"
+            label="pais"
+          >
+          </q-select>
           <q-input
             v-model="localUser.city"
             label="Ciudad"
@@ -86,11 +89,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { COUNTRIES } from '@/helpers/countries';
 import User from '@/interfaces/user';
 
 interface MyComponentState {
   localUser: User;
   dialog: boolean;
+  countries: string[];
 }
 
 export default defineComponent({
@@ -105,6 +110,7 @@ export default defineComponent({
     return {
       dialog: true,
       localUser: { ...this.user },
+      countries: COUNTRIES,
     };
   },
   methods: {

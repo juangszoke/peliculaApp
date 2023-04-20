@@ -2,8 +2,7 @@
   <h3 class="q-my-none q-ml-lg">Popular movies</h3>
   <div class="row justify-center">
     <div class="col-md-2">
-
-      <h6 class="q-my-md q-ml-md">Generos: </h6>
+      <h6 class="q-my-md q-ml-md">Generos:</h6>
       <q-chip
         v-for="(genre, index) in genres"
         :key="genre.id"
@@ -30,7 +29,11 @@
               <q-img
                 width="120px"
                 height="180px"
-                :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+                :src="`${
+                  movie.poster_path
+                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                    : require('@/assets/movie-no-image.webp')
+                }`"
               />
             </router-link>
           </q-card-section>
@@ -40,10 +43,27 @@
             <p>Fecha de estreno: {{ movie.release_date }}</p>
           </q-card-section>
         </q-card>
+        <template v-if="!populares[0]">
+          <h1>Error al cargar la pagina</h1>
+          <h3>No hay mas peliculas por mostrar</h3>
+        </template>
       </div>
     </div>
   </div>
-  <q-btn color="primary" @click="newPage"> ver mas </q-btn>
+  <q-btn v-if="!isFiltered" color="primary" @click="newPage"> ver mas </q-btn>
+
+  <div class="row q-my-lg q-mr-lg justify-end">
+    <q-btn
+      class="q-mr-md"
+      v-if="isFiltered && page > 1"
+      @click="backPage"
+      color="primary"
+      >Pagina anterior</q-btn
+    >
+    <q-btn v-if="isFiltered && populares[0]" color="primary" @click="nextPage"
+      >Pagina Siguiente</q-btn
+    >
+  </div>
 </template>
 
 <script lang="ts">
@@ -57,6 +77,7 @@ interface MyComponentState {
   page: number;
   genres: Genre[];
   selectedGenres: number[];
+  isFiltered: boolean;
 }
 
 interface Genre {
@@ -70,6 +91,7 @@ export default defineComponent({
     return {
       populares: [],
       page: 1,
+      isFiltered: false,
       genres: [
         {
           id: 28,
@@ -154,6 +176,7 @@ export default defineComponent({
   methods: {
     ...mapMutations('movie', ['setDefaultValue']),
     ...mapMutations('movie', ['setFilterdefault']),
+    ...mapMutations('movie', ['setFilterMovie']),
     async newPage() {
       this.page += 1;
       if (this.selectedGenres.length === 0) {
@@ -179,6 +202,7 @@ export default defineComponent({
       return this.selectedGenres.includes(this.genres[index].id);
     },
     async filter() {
+      this.isFiltered = false;
       this.setFilterdefault();
       this.page = 1;
       if (this.selectedGenres.length === 0) {
@@ -190,26 +214,61 @@ export default defineComponent({
         );
       }
     },
-    async loadMovies(){
-      console.log('cargar filtrado')
-    }
+    async loadMovies() {
+      this.populares = [];
+      this.populares = await moviesService.getFilterMovies(
+        this.getYearMovie,
+        this.getRateMovie,
+        this.getDurationMovie,
+        this.getGenresMovie,
+        this.getAdultMovie,
+        this.page
+      );
+      this.isFiltered = true;
+    },
+    nextPage() {
+      this.page += 1;
+      this.loadMovies();
+    },
+    backPage() {
+      this.page -= 1;
+      this.loadMovies();
+    },
   },
 
   async mounted() {
-    this.populares = await moviesService.getPopular(this.page);
-  },
-  computed:{
-    ...mapGetters('movie', ['getFilterMovie']),
-  },
-  watch:{
-    async getFilterMovie(){
-      if(this.getFilterMovie){
-        await this.loadMovies()
-      }else{
-        console.log('desactivado')
-      }
+    if (this.getFilterMovie) {
+      this.populares = await moviesService.getFilterMovies(
+        this.getYearMovie,
+        this.getRateMovie,
+        this.getDurationMovie,
+        this.getGenresMovie,
+        this.getAdultMovie,
+        this.page
+      );
+      this.isFiltered = true;
+    } else {
+      this.populares = await moviesService.getPopular(this.page);
     }
-  }
+  },
+  computed: {
+    ...mapGetters('movie', ['getFilterMovie']),
+    ...mapGetters('movie', ['getYearMovie']),
+    ...mapGetters('movie', ['getRateMovie']),
+    ...mapGetters('movie', ['getDurationMovie']),
+    ...mapGetters('movie', ['getGenresMovie']),
+    ...mapGetters('movie', ['getAdultMovie']),
+  },
+  watch: {
+    async getFilterMovie() {
+      if (this.getFilterMovie) {
+        this.page = 1;
+        await this.loadMovies();
+        this.isFiltered = true;
+        this.setFilterMovie();
+      }
+    },
+  },
 });
 </script>
 
@@ -223,7 +282,7 @@ h3 {
   font-weight: bold;
   margin: 1rem;
 }
-h6{
+h6 {
   font-weight: bold;
 }
 </style>

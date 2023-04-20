@@ -10,21 +10,30 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-          <q-toolbar-title>
-        
-        Filtros
-        <filter-movies />
-      </q-toolbar-title>
+        <q-toolbar-title>
+          Filtros
+          <filter-movies />
+        </q-toolbar-title>
         <template v-if="nombre">
           <q-toolbar-title> Bienvenido {{ nombre }} </q-toolbar-title>
-          
-          <q-toggle class="q-mr-md" v-model="mode" color="white" label="Dark mode"/>
+
+          <q-toggle
+            class="q-mr-md"
+            v-model="mode"
+            color="white"
+            label="Dark mode"
+          />
           <q-btn flat @click="OnLogOut">Cerrar sesion</q-btn>
         </template>
-        
+
         <template v-else>
           <q-toolbar-title> Bienvenido </q-toolbar-title>
-          <q-toggle class="q-mr-md" v-model="mode" color="white" label="Dark mode" />
+          <q-toggle
+            class="q-mr-md"
+            v-model="mode"
+            color="white"
+            label="Dark mode"
+          />
           <q-btn flat @click="login">Login</q-btn>
         </template>
       </q-toolbar>
@@ -33,15 +42,8 @@
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
         <q-item-label header> Peliculas app </q-item-label>
-        <q-item
-          @click="resetMovieActual"
-          to="/movies"
-          clickable
-          v-ripple
-        >
-            <q-item-section >
-             Home
-          </q-item-section>
+        <q-item @click="resetMovieActual" to="/movies" clickable v-ripple exact>
+          <q-item-section> Home </q-item-section>
         </q-item>
         <q-item
           @click="resetMovieActual"
@@ -50,9 +52,7 @@
           v-ripple
           v-if="getUser"
         >
-            <q-item-section >
-             Favoritas
-          </q-item-section>
+          <q-item-section> Favoritas </q-item-section>
         </q-item>
         <q-item
           @click="resetMovieActual"
@@ -61,12 +61,8 @@
           v-ripple
           v-if="getUser"
         >
-            <q-item-section >
-             Perfil
-          </q-item-section>
+          <q-item-section> Perfil </q-item-section>
         </q-item>
-      
-        
       </q-list>
     </q-drawer>
 
@@ -81,7 +77,7 @@ import { defineComponent } from 'vue';
 
 import { mapMutations } from 'vuex';
 import { mapGetters } from 'vuex';
-import FilterMovies from '@/modules/movies/components/FilterMovies.vue'
+import FilterMovies from '@/modules/movies/components/FilterMovies.vue';
 
 interface MyComponentState {
   linksList: items[];
@@ -97,8 +93,8 @@ interface items {
 
 export default defineComponent({
   name: 'MainLayout',
-  components:{
-    FilterMovies
+  components: {
+    FilterMovies,
   },
   data(): MyComponentState {
     return {
@@ -124,13 +120,10 @@ export default defineComponent({
     resetMovieActual() {
       this.setDefaultValue();
     },
-    toggleDarkMode(){
+    toggleDarkMode() {
       this.mode = !this.mode;
-      console.log(this.mode)
-      
-    }
-
-
+      console.log(this.mode);
+    },
   },
   computed: {
     ...mapGetters('auth', ['getName']),
@@ -141,9 +134,9 @@ export default defineComponent({
     getName(newVal) {
       this.nombre = newVal;
     },
-    mode(newVal){
-       this.$q.dark.set(newVal);
-    }
+    mode(newVal) {
+      this.$q.dark.set(newVal);
+    },
   },
   created() {
     this.nombre = this.getName;
@@ -151,5 +144,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
