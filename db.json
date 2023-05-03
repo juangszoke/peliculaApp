@@ -43,6 +43,16 @@
       "city": "Cordoba",
       "genre": "aventura",
       "id": 3
+    },
+    {
+      "user": "",
+      "name": "",
+      "email": "",
+      "password": "",
+      "country": "",
+      "city": "",
+      "genre": "",
+      "id": 4
     }
   ],
   "favorites": [
