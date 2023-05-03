@@ -4,6 +4,10 @@ import MovieRouter from '../modules/movies/router';
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/',
+    redirect: '/movies',
+  },
+  {
     path: '/auth',
     ...AuthRouter,
   },
